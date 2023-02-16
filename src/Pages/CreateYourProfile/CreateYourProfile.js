@@ -13,10 +13,6 @@ function CreateYourProfile({ url }) {
   const theme = useContext(ThemeContext);
   const navigateBack = () => {
     navigate(-1);
-    console.log(theme);
-  };
-  const navigateToTutorProfile = () => {
-    navigate("../tutorProfile");
   };
   return (
     <>

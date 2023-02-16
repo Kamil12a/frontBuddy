@@ -23,7 +23,7 @@ function ProfilManagment() {
     const data = {
       ...theme.userDataAccount,
       email: theme.userDataAccount.email,
-      login: "s",
+      login: theme.userDataAccount.login,
       password: theme.userDataAccount.password,
       name: theme.userDataAccount.email,
       surname: " ",
@@ -41,6 +41,7 @@ function ProfilManagment() {
       .then((data) => {
         console.log("Success:", data);
         theme.setUserDataAccount({
+          id:data,
           isLoggedIn: false,
           email: "",
           login: "",

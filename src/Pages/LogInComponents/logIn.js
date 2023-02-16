@@ -31,14 +31,18 @@ function LogIn() {
         if (data === true) {
           theme.setUserDataAccount({
             ...theme.userDataAccount,
-            isLoggedIn: data,
+            isLoggedIn: true,
           });
-          sessionStorage.setItem("user", JSON.stringify(theme.userDataAccount));
-          navigate("../groupPanel")
         }
+        addToSession()
       })
       
   };
+  async function addToSession() {
+    await sessionStorage.setItem("user", JSON.stringify(theme.userDataAccount));
+    navigate("../groupPanel");
+}
+
   return (
     <>
       <section className="LogInContainer">

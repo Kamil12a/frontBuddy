@@ -68,16 +68,6 @@ function Groups() {
                 </SelectInput>
               </div>
             </div>
-            <div className="groupsContainer-block">
-              <GroupContainer />
-              <GroupContainer />
-            </div>
-            <div className="groupsContainer-block">
-              <GroupContainer />
-              <GroupContainer />
-            </div>
-           
-
             <SimpleBlockInput
               onClick={() => {
                 navigate("../createGroup_ChooseSubject");
