@@ -22,23 +22,32 @@ function LogIn() {
   const navigateToCreateAccount = () => {
     navigate("./createAccount");
   };
-  const logIn = (values) => {
+  const logIn =  (values) => {
+    let user;
     fetch(
       `http://145.239.86.33/User/LoginUser?login=${values.userName}&password=${values.password}`
     )
       .then((response) => response.json())
       .then((data) => {
         if (data === true) {
+          
           theme.setUserDataAccount({
             ...theme.userDataAccount,
-            isLoggedIn: data,
+            isLoggedIn: true,
           });
-          sessionStorage.setItem("user", JSON.stringify(theme.userDataAccount));
-          navigate("../groupPanel")
         }
+      }).then(()=>{
+        user={...theme.userDataAccount, isLoggedIn: true}
+        sessionStorage.setItem("user", JSON.stringify(user));
+        navigate("../groupPanel");
       })
       
   };
+
+   
+ 
+
+
   return (
     <>
       <section className="LogInContainer">

@@ -24,6 +24,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient()
 function App() {
   const [userDataAccount, setUserDataAccount] = useState({
+    id: 1,
     isLoggedIn: false,
     email: "",
     login: "",
@@ -34,13 +35,12 @@ function App() {
   });
   useEffect(() => {
     let user = JSON.parse(sessionStorage.getItem("user"));
-    console.log(user);
     if (user !== null) {
       if (user.isLoggedIn) {
         setUserDataAccount(user);
       }
     }
-  }, []);
+  }, [userDataAccount.isLoggedIn]);
 
   return (
     <QueryClientProvider client={queryClient}>

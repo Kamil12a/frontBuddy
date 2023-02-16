@@ -10,7 +10,7 @@ import {
   Button,
 } from "../../Components/variables";
 import { Formik } from "formik";
-import { useState } from "react";
+import { postGroup } from "./postGroup";
 import "./createGroup.css";
 import Navigation from "../../Components/Navigation/Navigation";
 function CreateGroup() {
@@ -33,8 +33,10 @@ function CreateGroup() {
           </MediumTitle>
         </header>
         <Formik
-          initialValues={{ userName: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          initialValues={{ title: "", description: "" }}
+          onSubmit={(values) => postGroup(values).then(()=>{
+            navigate()
+          })}
         >
           {({ values, handleChange, handleSubmit }) => (
             <form
@@ -42,7 +44,11 @@ function CreateGroup() {
               onSubmit={handleSubmit}
             >
               <SmallLabelForm>Tytuł</SmallLabelForm>
-              <InputForm />
+              <InputForm
+                name="title"
+                onChange={handleChange}
+                value={values.title}
+              />
               <div className="section-groups_sort_container">
                 <SelectInput className="section-groups_sort" name="Sortuj">
                   <option value="">Przedmiot</option>
@@ -53,6 +59,8 @@ function CreateGroup() {
               </div>
               <SmallLabelForm>Opis</SmallLabelForm>
               <textarea
+                onChange={handleChange}
+                value={values.description}
                 className="section-create_group_description"
                 id="description"
                 name="description"
@@ -61,14 +69,14 @@ function CreateGroup() {
                 dodaj spotkanie
               </MedParagraph>
               <MedParagraph>dodaj wynagrodzenie</MedParagraph>
-              <SimpleBlockInput
+              {/* <SimpleBlockInput
                 onClick={() => {
                   navigate("../recommendedTutor");
                 }}
                 className="addTutor_btn"
               >
                 Zaproś korepetytora
-              </SimpleBlockInput>
+              </SimpleBlockInput> */}
               <div className="buttons_boxes">
                 <Button
                   onClick={() => {
@@ -77,13 +85,7 @@ function CreateGroup() {
                 >
                   Anuluj
                 </Button>
-                <Button
-                  onClick={() => {
-                    navigate("../groupId");
-                  }}
-                >
-                  Zatwierdź
-                </Button>
+                <Button type="submit">Zatwierdź</Button>
               </div>
             </form>
           )}
