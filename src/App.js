@@ -20,7 +20,8 @@ import ChatGroup from "./PagesGroups/ChatGroup/ChatGroup";
 import AddMettings from "./PagesGroups/AddMettings/AddMettings";
 import AddPayment from "./PagesGroups/AddPayment/AddPayment";
 import DeleteGroup from "./PagesGroups/DeleteGroup/DeleteGroup";
-
+import { QueryClient, QueryClientProvider } from 'react-query'
+const queryClient = new QueryClient()
 function App() {
   const [userDataAccount, setUserDataAccount] = useState({
     isLoggedIn: false,
@@ -42,6 +43,7 @@ function App() {
   }, []);
 
   return (
+    <QueryClientProvider client={queryClient}>
     <>
       <ThemeContext.Provider value={{ userDataAccount, setUserDataAccount }}>
         <HashRouter>
@@ -82,18 +84,20 @@ function App() {
                   path="/readyTutorProfile"
                   element={<ReadyTutorProfile />}
                 />
-                <Route path="/groupId" element={<CreatedGroup />} />
+                <Route path="/detailsGroup/:id" element={<CreatedGroup />} />
                 <Route path="/groupSettingsId" element={<GroupSettings />} />
                 <Route path="/chatGroupId" element={<ChatGroup />} />
                 <Route path="/addMettingsId" element={<AddMettings />} />
                 <Route path="/addPaymentId" element={<AddPayment />} />
                 <Route path="/deleteGroupId" element={<DeleteGroup />} />
+               
               </>
             )}
           </Routes>
         </HashRouter>
       </ThemeContext.Provider>
     </>
+    </QueryClientProvider>
   );
 }
 

@@ -7,7 +7,7 @@ import {
 } from "../../Components/variables.js";
 import ellipse from "./Photos/Ellipse.png";
 import heart from "./Photos/heart.png";
-function GroupContainer() {
+function GroupContainer(shortDescription) {
   return (
     <>
       <div className="groupContainer">
