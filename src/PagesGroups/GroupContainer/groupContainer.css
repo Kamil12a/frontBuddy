@@ -1,8 +1,8 @@
 .groupContainer{
-    width: 50%;
+    
+    width: calc(50vw - 40px)!important;
     border: 1px solid black;
     height: 156px;
-
     padding-left: 9px;
     padding-top: 11px;
 }

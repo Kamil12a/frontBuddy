@@ -77,8 +77,8 @@ function Groups() {
                               navigate(`/detailsGroup/${grupa.id}`);;
                             }}>
                           <GroupContainer
-                            
-                            shortDescription={grupa.description}
+     
+                            shortDescription={grupa.shortDescription}
                           />
                         </div>
                       </>

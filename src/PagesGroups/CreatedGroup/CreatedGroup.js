@@ -46,7 +46,7 @@ function CreatedGroup() {
           alt="arrow left"
         />
         <MediumTitle className="section-yourProfile_Header_title">
-          Statistica
+          {groups.shortDescription}
         </MediumTitle>
       </header>
       <div className="created_group_section_subjects">
