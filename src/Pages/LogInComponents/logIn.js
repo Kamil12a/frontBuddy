@@ -34,9 +34,10 @@ function LogIn() {
             isLoggedIn: data,
           });
           sessionStorage.setItem("user", JSON.stringify(theme.userDataAccount));
+          navigate("../groupPanel")
         }
       })
-      .then(() => navigate("../groupPanel"));
+      
   };
   return (
     <>

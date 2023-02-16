@@ -22,13 +22,6 @@ import AddPayment from "./PagesGroups/AddPayment/AddPayment";
 import DeleteGroup from "./PagesGroups/DeleteGroup/DeleteGroup";
 
 function App() {
-  useEffect(() => {
-    let user = JSON.parse(sessionStorage.getItem("user"));
-
-    if (user.isLoggedIn) {
-      setUserDataAccount(user);
-    }
-  }, []);
   const [userDataAccount, setUserDataAccount] = useState({
     isLoggedIn: false,
     email: "",
@@ -38,6 +31,15 @@ function App() {
     surname: " ",
     course: "",
   });
+  useEffect(() => {
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(user);
+    if (user !== null) {
+      if (user.isLoggedIn) {
+        setUserDataAccount(user);
+      }
+    }
+  }, []);
 
   return (
     <>
