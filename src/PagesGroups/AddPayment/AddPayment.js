@@ -3,7 +3,7 @@ import money from "./photos/money.png";
 
 import { useNavigate } from "react-router-dom";
 
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
 import Navigation from "../../Components/Navigation/Navigation.js";
 import {
   SelectInput,
@@ -46,9 +46,15 @@ function AddPayment() {
             Wynagrodzenie nie jest obowiązkowe i nie musi mieć formy pieniężnej.
           </SmallParagraph>
         </div>
-        <Button onClick={()=>{
-            navigate(-1)
-        }}className="add_mettings_section_btn"> Zatwierdź</Button>
+        <Button
+          onClick={() => {
+            navigate(-1);
+          }}
+          className="add_mettings_section_btn"
+        >
+          {" "}
+          Zatwierdź
+        </Button>
       </section>
     </>
   );

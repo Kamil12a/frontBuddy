@@ -7,16 +7,17 @@ import {
   SmallLabelForm,
   MedParagraph,
   SimpleBlockInput,
-  Button
+  Button,
 } from "../../Components/variables";
+import { Formik } from "formik";
 import { useState } from "react";
 import "./createGroup.css";
-import Navigation from "../../Components/Navigation/Navigation"
+import Navigation from "../../Components/Navigation/Navigation";
 function CreateGroup() {
   const navigate = useNavigate();
   return (
     <>
-    <Navigation/>
+      <Navigation />
       <section className=" section-create_group">
         <header className="section-create_group_Header">
           <img
@@ -31,36 +32,62 @@ function CreateGroup() {
             Utwórz grupę{" "}
           </MediumTitle>
         </header>
-        <SmallLabelForm>Tytuł</SmallLabelForm>
-        <InputForm />
-        <div className="section-groups_sort_container">
-          <SelectInput className="section-groups_sort" name="Sortuj">
-            <option value="">Przedmiot</option>
-          </SelectInput>
-          <SelectInput className="section-groups_sort" name="Sortuj">
-            <option value="">Deadline</option>
-          </SelectInput>
-        </div>
-        <SmallLabelForm>Opis</SmallLabelForm>
-        <textarea
-          className="section-create_group_description"
-          id="description"
-          name="description"
-        />
-        <MedParagraph className="section-create_group_btns">dodaj spotkanie</MedParagraph>
-        <MedParagraph>dodaj wynagrodzenie</MedParagraph>
-        <SimpleBlockInput onClick={()=>{
-          navigate("../recommendedTutor")
-        }} className="addTutor_btn">Zaproś korepetytora</SimpleBlockInput>
-        <div className="buttons_boxes">
-            <Button onClick={()=>{
-              navigate(-1)
-            }}>Anuluj</Button>
-            <Button onClick={()=>{
-              navigate("../groupId")
-            }}>Zatwierdź</Button>
-        </div>
-     
+        <Formik
+          initialValues={{ userName: "", password: "" }}
+          onSubmit={(values) => console.log(values)}
+        >
+          {({ values, handleChange, handleSubmit }) => (
+            <form
+              className="LogInContainer_Form_inputs"
+              onSubmit={handleSubmit}
+            >
+              <SmallLabelForm>Tytuł</SmallLabelForm>
+              <InputForm />
+              <div className="section-groups_sort_container">
+                <SelectInput className="section-groups_sort" name="Sortuj">
+                  <option value="">Przedmiot</option>
+                </SelectInput>
+                <SelectInput className="section-groups_sort" name="Sortuj">
+                  <option value="">Deadline</option>
+                </SelectInput>
+              </div>
+              <SmallLabelForm>Opis</SmallLabelForm>
+              <textarea
+                className="section-create_group_description"
+                id="description"
+                name="description"
+              />
+              <MedParagraph className="section-create_group_btns">
+                dodaj spotkanie
+              </MedParagraph>
+              <MedParagraph>dodaj wynagrodzenie</MedParagraph>
+              <SimpleBlockInput
+                onClick={() => {
+                  navigate("../recommendedTutor");
+                }}
+                className="addTutor_btn"
+              >
+                Zaproś korepetytora
+              </SimpleBlockInput>
+              <div className="buttons_boxes">
+                <Button
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
+                  Anuluj
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate("../groupId");
+                  }}
+                >
+                  Zatwierdź
+                </Button>
+              </div>
+            </form>
+          )}
+        </Formik>
       </section>
     </>
   );

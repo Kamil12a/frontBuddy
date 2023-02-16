@@ -2,22 +2,121 @@ import { useContext } from "react";
 import { ThemeContext } from "../../Context/UserContext";
 import book from "./photos/bookTutor.png";
 import pen from "./photos/pen.png";
-import { MedParagraph, SmallParagraph } from "../../Components/variables";
+import {
+  MedParagraph,
+  SmallParagraph,
+  MediumTitle,
+  Button,
+} from "../../Components/variables";
 import "./profilManagment.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import arrow from "../ChooseDepartment/photos/leftArrow.png";
+
+import department from "../ChooseDepartment/photos/departmentMain.png";
+import year from "../ChooseDepartment/photos/yearOfStudy.png";
+import field from "../ChooseDepartment/photos/fieldOfStudy.png";
 import settings from "./photos/settings.png";
-import CreateYourProfile from "../CreateYourProfile/CreateYourProfile";
 function ProfilManagment() {
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
+  const createAccount = () => {
+    const data = {
+      ...theme.userDataAccount,
+      email: theme.userDataAccount.email,
+      login: "s",
+      password: theme.userDataAccount.password,
+      name: theme.userDataAccount.email,
+      surname: " ",
+      course: theme.userDataAccount.yourDepartment,
+    };
+
+    fetch("http://145.239.86.33/User/AddUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        theme.setUserDataAccount({
+          isLoggedIn: false,
+          email: "",
+          login: "",
+          password: "",
+          name: "",
+          surname: " ",
+          course: "",
+        });
+        navigate("../");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <>
-      <CreateYourProfile url={"../groupPanel"} />
       <section className="section_tutorProfile">
+        <header className=" section-yourProfile_Header">
+          <img
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="section-yourProfile_Header_arrow "
+            src={arrow}
+            alt="arrow left"
+          />
+          <MediumTitle className="section-yourProfile_Header_title">
+            Profil
+          </MediumTitle>
+        </header>
+        <div className="container_userName">
+          <MediumTitle>{theme.userDataAccount.name}</MediumTitle>
+        </div>
+
+        <div className="yourInformationAboutStudyInProfile">
+          <div className="block_aboutyourStudy">
+            <img
+              className="aboutYourStudyImage"
+              src={department}
+              alt="department"
+            />
+            <MedParagraph>{theme.userDataAccount.yourDepartment}</MedParagraph>
+          </div>
+          <div className="block_aboutyourStudy">
+            <img
+              className="aboutYourStudyImage boutYourStudyImage2"
+              src={field}
+              alt="department"
+            />
+            <MedParagraph>{theme.userDataAccount.field}</MedParagraph>
+          </div>
+          <div className="block_aboutyourStudy">
+            <img
+              className="aboutYourStudyImage boutYourStudyImage2"
+              src={year}
+              alt="department"
+            />
+            <MedParagraph>{theme.userDataAccount.yearOfStudy}</MedParagraph>
+          </div>
+        </div>
+
+        <Button
+          onClick={() => {
+            createAccount();
+          }}
+          type="submit"
+          className="Container_Form_department_confirm"
+        >
+          Zatwierdź
+        </Button>
         <div className="section_tutorProfile_title">
           <img src={book} alt="book" />
-          <MedParagraph className="tutorTitle_sectionTutorProfile">Korepetytor</MedParagraph>
+          <MedParagraph className="tutorTitle_sectionTutorProfile">
+            Korepetytor
+          </MedParagraph>
         </div>
         <SmallParagraph className="section_tutorProfile_description_text">
           Opis:

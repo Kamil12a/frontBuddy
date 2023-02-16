@@ -4,8 +4,7 @@ import callendar from "./photos/callendar.png";
 import clock from "./photos/clock.png";
 import pen from "./photos/pen.png";
 import { useNavigate } from "react-router-dom";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// import Calendar from "react-calendar";
 import Navigation from "../../Components/Navigation/Navigation.js";
 import {
   SelectInput,
@@ -24,7 +23,7 @@ function AddMettings() {
   return (
     <>
       <Navigation />
-      <section className="add_mettings_section">
+      {/* <section className="add_mettings_section">
         <header className=" section-yourProfile_Header">
           <img
             onClick={() => {
@@ -104,7 +103,7 @@ function AddMettings() {
         <Button  onClick={()=>{
             navigate(-1)
         }} className="add_mettings_section_btn"> Zatwierdź</Button>
-      </section>
+      </section> */}
     </>
   );
 }

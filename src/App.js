@@ -5,7 +5,7 @@ import ChooseYourStudySubject from "./Pages/ChooseDepartment/ChooseYourStudySubj
 import { ThemeContext } from "./Context/UserContext";
 import TutorProfile from "./Pages/TutorProfile/TutorProfile";
 import WhatSubjectDoYouKnow from "./Pages/WhatSubjectDoYouKnow/WhatSubjectDoYouKnow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WriteAboutYou from "./Pages/WriteAboutYou/WriteAboutYou";
 import CreateYourProfile from "./Pages/CreateYourProfile/CreateYourProfile";
 import ProfilManagment from "./Pages/ProfilManagment/ProfilManagment";
@@ -20,15 +20,32 @@ import ChatGroup from "./PagesGroups/ChatGroup/ChatGroup";
 import AddMettings from "./PagesGroups/AddMettings/AddMettings";
 import AddPayment from "./PagesGroups/AddPayment/AddPayment";
 import DeleteGroup from "./PagesGroups/DeleteGroup/DeleteGroup";
+
 function App() {
-  const [userDataAccount, setUserDataAccount] = useState({ username: "" });
+  useEffect(() => {
+    let user = JSON.parse(sessionStorage.getItem("user"));
+
+    if (user.isLoggedIn) {
+      setUserDataAccount(user);
+    }
+  }, []);
+  const [userDataAccount, setUserDataAccount] = useState({
+    isLoggedIn: false,
+    email: "",
+    login: "",
+    password: "",
+    name: "",
+    surname: " ",
+    course: "",
+  });
+
   return (
     <>
       <ThemeContext.Provider value={{ userDataAccount, setUserDataAccount }}>
         <HashRouter>
           <Routes>
-
             <Route exact path="/" element={<LogIn />} />
+
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route
               path="/chooseYourStudySubject"
@@ -46,18 +63,31 @@ function App() {
             <Route path="/writeAboutYou" element={<WriteAboutYou />} />
             <Route path="/yourProfile" element={<ProfilManagment />} />
             <Route path="/profileSettings" element={<ProfileSettings />} />
-            <Route path="/groupPanel" element={<Groups />} />
-            <Route path="/createGroup_ChooseSubject" element={<CreateGroup />} />
-            <Route path="/recommendedTutor" element={<RecoomendedTutor />} />
-            <Route path="/readyTutorProfile" element={<ReadyTutorProfile />} />
-            <Route path="/groupId" element={<CreatedGroup/>} />
-            <Route path="/groupSettingsId" element={<GroupSettings/>} />
-            <Route path="/chatGroupId" element={<ChatGroup/>} />
-            <Route path="/addMettingsId" element={<AddMettings/>} />
-            <Route path="/addPaymentId" element={<AddPayment/>} />
-            <Route path="/deleteGroupId" element={<DeleteGroup/>} />
 
-          
+            {userDataAccount.isLoggedIn && (
+              <>
+                <Route path="/groupPanel" element={<Groups />} />
+
+                <Route
+                  path="/createGroup_ChooseSubject"
+                  element={<CreateGroup />}
+                />
+                <Route
+                  path="/createGroup_ChooseSubject"
+                  element={<RecoomendedTutor />}
+                />
+                <Route
+                  path="/readyTutorProfile"
+                  element={<ReadyTutorProfile />}
+                />
+                <Route path="/groupId" element={<CreatedGroup />} />
+                <Route path="/groupSettingsId" element={<GroupSettings />} />
+                <Route path="/chatGroupId" element={<ChatGroup />} />
+                <Route path="/addMettingsId" element={<AddMettings />} />
+                <Route path="/addPaymentId" element={<AddPayment />} />
+                <Route path="/deleteGroupId" element={<DeleteGroup />} />
+              </>
+            )}
           </Routes>
         </HashRouter>
       </ThemeContext.Provider>

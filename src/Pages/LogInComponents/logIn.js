@@ -6,19 +6,37 @@ import {
   InputForm,
   SmallParagraph,
 } from "../../Components/variables.js";
+import { useContext, useEffect } from "react";
+import { ThemeContext } from "../../Context/UserContext";
 import "./logIn.css";
 import { Formik } from "formik";
-import { useEffect } from "react";
 
 function LogIn() {
   useEffect(() => {
-    fetch("http://145.239.86.33/User/GetAllUsers")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    if (theme.userDataAccount.isLoggedIn) {
+      navigate(+1);
+    }
   }, []);
+  const theme = useContext(ThemeContext);
   const navigate = useNavigate();
   const navigateToCreateAccount = () => {
     navigate("./createAccount");
+  };
+  const logIn = (values) => {
+    fetch(
+      `http://145.239.86.33/User/LoginUser?login=${values.userName}&password=${values.password}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === true) {
+          theme.setUserDataAccount({
+            ...theme.userDataAccount,
+            isLoggedIn: data,
+          });
+          sessionStorage.setItem("user", JSON.stringify(theme.userDataAccount));
+        }
+      })
+      .then(() => navigate("../groupPanel"));
   };
   return (
     <>
@@ -26,7 +44,7 @@ function LogIn() {
         <BigTitle className="LogInContainer_logInHeader">Logowanie</BigTitle>
         <Formik
           initialValues={{ userName: "", password: "" }}
-          onSubmit={(values) => navigate("../groupPanel")}
+          onSubmit={(values) => logIn(values)}
         >
           {({ values, handleChange, handleSubmit }) => (
             <form
@@ -62,7 +80,6 @@ function LogIn() {
         </Formik>
 
         <SmallParagraph
-        
           onClick={navigateToCreateAccount}
           className="LogInContainer-signUp"
         >

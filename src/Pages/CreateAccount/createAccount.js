@@ -4,7 +4,6 @@ import {
   LabelForm,
   BigTitle,
   InputForm,
-
 } from "../../Components/variables.js";
 import "./createAccount.css";
 import { useContext } from "react";
@@ -19,21 +18,8 @@ function CreateAccount() {
       ...theme.userDataAccount,
       ...data,
     });
-
-    navigate("../ChooseYourStudySubject");
-    // fetch("http://145.239.86.33/User/AddUser", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     email: "string",
-    //     login: "string",
-    //     password: "string",
-    //     name: "string",
-    //     surname: "string",
-    //     course: "string",
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data));
+  
+    navigate("../chooseYourStudySubject")
   };
 
   return (
