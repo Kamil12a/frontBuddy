@@ -10,6 +10,9 @@ import book from "./photos/book.png";
 import settings from "./photos/settings.png";
 import { useState } from "react";
 import Navigation from "../../Components/Navigation/Navigation.js";
+import { fetchCreatedGroups } from "./fetchCreatedGroup";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import {
   SelectInput,
   InputForm,
@@ -21,6 +24,11 @@ import {
 } from "../../Components/variables.js";
 import "./createdGroup.css";
 function CreatedGroup() {
+  let { id } = useParams();
+  const { data: groups } = useQuery("createdGroup", () =>
+    fetchCreatedGroups(id)
+  );
+  console.log(groups);
   const navigate = useNavigate();
   const [areYouUser, setAreYouUser] = useState(0);
   return (
@@ -41,13 +49,12 @@ function CreatedGroup() {
           </MediumTitle>
         </header>
         <div className="created_group_section_subjects">
-          <SimpleBlockInput>Analiza Danych</SimpleBlockInput>
-          <SimpleBlockInput>do 01.12.2022</SimpleBlockInput>
+          <SimpleBlockInput>{groups.shortDescription}</SimpleBlockInput>
+          <SimpleBlockInput>do {groups.expireDate}</SimpleBlockInput>
         </div>
         <label htmlFor="description"></label>
         <MedParagraph className="created_group_section_Textarea">
-          Potrzebuję pomocy w ogarnięciu narzędzia Statistica, przećwiczeniu
-          paru przykładów z zajęć.
+          {groups.description}
         </MedParagraph>
         <div className="created_group_section_users">
           <SmallParagraph>uczestnicy:</SmallParagraph>
@@ -65,16 +72,15 @@ function CreatedGroup() {
         <div className="created_group_section_mettingInfo">
           <div className="created_group_section_mettingInfo_location">
             <img src={location} alt="location" />
-            <MedParagraph>Bibiloteka UG Wita Stwosza </MedParagraph>
+            <MedParagraph>{groups.place} </MedParagraph>
           </div>
           <div className="created_group_section_mettingInfo_data">
             <div className="created_group_section_mettingInfo_dataInfo">
               <img src={callendar} alt="callendar" />
-              <MedParagraph>20.11.2022</MedParagraph>
+              <MedParagraph>{groups.meetingDate}</MedParagraph>
             </div>
             <div className="created_group_section_mettingInfo_dataInfo">
               <img src={clock} alt="clock" />
-              <MedParagraph>15.00-17.00 </MedParagraph>
             </div>
           </div>
         </div>

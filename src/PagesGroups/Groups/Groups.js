@@ -12,9 +12,13 @@ import ChooseSubjectFilterGroup from "../ChooseSubjectFilterGroup/ChooseSubjectF
 import GroupContainer from "../GroupContainer/GroupContainer";
 import { useState } from "react";
 import SortSection from "../SortSection/SortSection";
+import { fetchGroups } from "./fetchGroups";
+import { useQuery } from "react-query";
 function Groups() {
   const [state, setState] = useState(0);
   const navigate = useNavigate();
+  const { data: groups } = useQuery("groups", fetchGroups);
+  console.log(groups);
   return (
     <>
       <section className=" section-groups">
@@ -29,18 +33,13 @@ function Groups() {
                 className="section-groups-input-searchByName"
               />
               <SelectInput
-               onClick={() => {
-                setState(2);
-              }}
+                onClick={() => {
+                  setState(2);
+                }}
                 className="section-groups_sort"
                 name="Sortuj"
               >
-                <option
-                  
-                  value=""
-                >
-                  Sortuj
-                </option>
+                <option value="">Sortuj</option>
               </SelectInput>
             </div>
             <div>
@@ -68,6 +67,27 @@ function Groups() {
                 </SelectInput>
               </div>
             </div>
+            <div className="groupsContainer-block">
+              {groups !== undefined && (
+                <>
+                  {groups.groups.map((grupa) => {
+                    return (
+                      <>
+                        <div onClick={() => {
+                              navigate(`/detailsGroup/${grupa.id}`);;
+                            }}>
+                          <GroupContainer
+                            
+                            shortDescription={grupa.description}
+                          />
+                        </div>
+                      </>
+                    );
+                  })}
+                </>
+              )}
+            </div>
+
             <SimpleBlockInput
               onClick={() => {
                 navigate("../createGroup_ChooseSubject");
