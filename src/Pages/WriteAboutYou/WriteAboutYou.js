@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useContext } from "react";
 import { ThemeContext } from "../../Context/UserContext";
+import HeaderComponent from "../../Components/Header/Headers";
 function WriteAboutYou() {
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -18,19 +19,7 @@ function WriteAboutYou() {
   return (
     <>
       <section className=" section-writeAboutYou">
-        <header className=" section-writeAboutYou_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-writeAboutYou_Header_title">
-            Napisz coś o sobie!
-          </MediumTitle>
-        </header>
+       <HeaderComponent text={"Napisz coś o sobie!"}/>
         <LabelForm
           htmlFor="aboutYou"
           className="section-writeAboutYou_Header_text"

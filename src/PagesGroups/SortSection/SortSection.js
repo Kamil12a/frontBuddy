@@ -1,12 +1,11 @@
-import arrow from "../Photos/leftArrow.png";
 import { useNavigate } from "react-router-dom";
 import {
-  MediumTitle,
   SimpleBlockInput,
   Button,
 } from "../../Components/variables";
 import "./sortSection.css";
 import { useState } from "react";
+import HeaderComponent from "../../Components/Header/Headers";
 function SortSection({ setState }) {
   let choosenSubjects = [];
   const [yourSubject, setYourSubject] = useState([]);
@@ -35,19 +34,7 @@ function SortSection({ setState }) {
   return (
     <>
       <section className=" section-yourProfile">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              setState(0)
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Sortuj według{" "}
-          </MediumTitle>
-        </header>
+      <HeaderComponent text={"Sortuj według"}/>
         {subejcts.map((subject, index) => {
           if (yourSubject.includes(subject)) {
             return (

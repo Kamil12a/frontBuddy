@@ -10,8 +10,7 @@ import {
 } from "../../Components/variables";
 import "./profilManagment.css";
 import { useNavigate } from "react-router-dom";
-import arrow from "../ChooseDepartment/photos/leftArrow.png";
-
+import HeaderComponent from "../../Components/Header/Headers"
 import department from "../ChooseDepartment/photos/departmentMain.png";
 import year from "../ChooseDepartment/photos/yearOfStudy.png";
 import field from "../ChooseDepartment/photos/fieldOfStudy.png";
@@ -29,6 +28,7 @@ function ProfilManagment() {
       surname: " ",
       course: theme.userDataAccount.yourDepartment,
     };
+    console.log(data)
 
     fetch("http://145.239.86.33/User/AddUser", {
       method: "POST",
@@ -59,23 +59,11 @@ function ProfilManagment() {
   return (
     <>
       <section className="section_tutorProfile">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Profil
-          </MediumTitle>
-        </header>
+       
         <div className="container_userName">
           <MediumTitle>{theme.userDataAccount.name}</MediumTitle>
         </div>
-
+    <HeaderComponent text={"Profil"}/>
         <div className="yourInformationAboutStudyInProfile">
           <div className="block_aboutyourStudy">
             <img

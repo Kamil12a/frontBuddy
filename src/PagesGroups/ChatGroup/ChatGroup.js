@@ -14,24 +14,13 @@ import {
   Button,
 } from "../../Components/variables.js";
 import "./chatGroup.css";
+import HeaderComponent from "../../Components/Header/Headers";
 function ChatGroup() {
   const navigate = useNavigate();
   return (
     <>
       <section className="groupChat_section">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Statistica
-          </MediumTitle>
-        </header>
+      <HeaderComponent text={"Statistica"}/>
         <div className="groupChat_section_chat">
           <img
             className="section-yourProfile_Header_arrow "

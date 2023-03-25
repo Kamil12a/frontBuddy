@@ -18,7 +18,6 @@ function Groups() {
   const [state, setState] = useState(0);
   const navigate = useNavigate();
   const { data: groups } = useQuery("groups", fetchGroups);
-  console.log(groups);
   return (
     <>
       <section className=" section-groups">

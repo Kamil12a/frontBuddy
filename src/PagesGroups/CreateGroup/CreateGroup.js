@@ -1,37 +1,23 @@
-import arrow from "../Photos/leftArrow.png";
 import { useNavigate } from "react-router-dom";
 import {
-  MediumTitle,
-  SelectInput,
+ SelectInput,
   InputForm,
   SmallLabelForm,
   MedParagraph,
-  SimpleBlockInput,
   Button,
 } from "../../Components/variables";
 import { Formik } from "formik";
 import { postGroup } from "./postGroup";
 import "./createGroup.css";
 import Navigation from "../../Components/Navigation/Navigation";
+import HeaderComponent from "../../Components/Header/Headers";
 function CreateGroup() {
   const navigate = useNavigate();
   return (
     <>
       <Navigation />
       <section className=" section-create_group">
-        <header className="section-create_group_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-create_group_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-create_group_title">
-            Utwórz grupę{" "}
-          </MediumTitle>
-        </header>
+      <HeaderComponent text={"Utwórz grupę"}/>
         <Formik
           initialValues={{ title: "", description: "" }}
           onSubmit={(values) => postGroup(values).then(()=>{

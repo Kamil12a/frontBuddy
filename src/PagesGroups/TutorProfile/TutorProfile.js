@@ -18,8 +18,7 @@ import "./TutorProfile.css";
 import Navigation from "../../Components/Navigation/Navigation.js";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import settings from "./photos/settings.png";
-import CreateYourProfile from "../../Pages/CreateYourProfile/CreateYourProfile.js";
+import HeaderComponent from "../../Components/Header/Headers";
 function ReadyTutorProfile() {
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -29,19 +28,7 @@ function ReadyTutorProfile() {
       {" "}
       <Navigation />
       <section className="section_tutorProfile section_tutorProfileReady">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Profil Korepetytora
-          </MediumTitle>
-        </header>
+      <HeaderComponent text={"Profil korepetytora"}/>
         {state === 0 && (
           <>
             <div className="section_tutorProfile_mainInformation">

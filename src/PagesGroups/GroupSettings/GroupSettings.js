@@ -1,46 +1,31 @@
-import arrow from "./photos/leftArrow.png";
 import { useNavigate } from "react-router-dom";
 import book from "./photos/tutorBook.png";
 import deleteImg from "./photos/delete.png";
 import share from "./photos/share.png";
 import callendar from "./photos/callendar.png";
 import leave from "./photos/leave.png";
-import { useState } from "react";
+import HeaderComponent from "../../Components/Header/Headers";
 import Navigation from "../../Components/Navigation/Navigation.js";
-
+import { useParams } from "react-router-dom";
 import {
-  SelectInput,
-  InputForm,
-  SmallParagraph,
-  MedParagraph,
-  MediumTitle,
+
+
   SimpleBlockInput,
-  Button,
+
 } from "../../Components/variables.js";
 import "./groupSettings.css";
 function GroupSettings() {
+  let { id } = useParams();
   const navigate = useNavigate();
   return (
     <>
       <Navigation />
       <section className="group_settings_section">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Statistica
-          </MediumTitle>
-        </header>
+      <HeaderComponent text={"Statistica"}/>
         <div className="section_yourProfile_settingsPanel">
           <SimpleBlockInput
             onClick={() => {
-              navigate("../addMettingsId");
+              navigate(`../addMettings/${id}`);
             }}
           >
             {" "}

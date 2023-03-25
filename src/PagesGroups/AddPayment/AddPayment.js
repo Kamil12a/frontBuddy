@@ -16,6 +16,7 @@ import {
 } from "../../Components/variables.js";
 import "./addPayment.css";
 import { useState } from "react";
+import HeaderComponent from "../../Components/Header/Headers";
 function AddPayment() {
   const [state, setState] = useState("data");
   const navigate = useNavigate();
@@ -23,19 +24,7 @@ function AddPayment() {
     <>
       <Navigation />
       <section className="add_mettings_section">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Dodaj wynagrodzenie
-          </MediumTitle>
-        </header>
+       <HeaderComponent text={"Dodaj wynagrodzenie"}/>
         <SmallParagraph className="add_mettings_section_payment_title">
           wynagrodzenie:
         </SmallParagraph>

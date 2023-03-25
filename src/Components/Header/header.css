@@ -1,0 +1,11 @@
+.Header{
+    display: flex;
+    align-items: center;
+    margin-top: 41px;
+    
+}
+.section_Header_arrow{
+    height: 21.4px;
+    margin-right: 13px;
+    cursor: pointer;
+}

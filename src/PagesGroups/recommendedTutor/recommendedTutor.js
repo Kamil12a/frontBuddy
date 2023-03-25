@@ -1,7 +1,5 @@
-import arrow from "../Photos/leftArrow.png";
 import ellipse from "./photos/ellipse.png";
 import {
-  MediumTitle,
   MedParagraph,
   SmallParagraph,
 } from "../../Components/variables";
@@ -11,6 +9,7 @@ import star from "./photos/star.png";
 import smArrow from "./photos/smArrow.png";
 
 import Navigation from "../../Components/Navigation/Navigation.js";
+import HeaderComponent from "../../Components/Header/Headers";
 function RecoomendedTutor() {
   const navigate = useNavigate();
   return (
@@ -18,19 +17,7 @@ function RecoomendedTutor() {
       <Navigation />
       <section className="section-recommendedTutor">
         <div className="section-yourProfile">
-          <header className=" section-yourProfile_Header">
-            <img
-              onClick={() => {
-                navigate(-1);
-              }}
-              className="section-yourProfile_Header_arrow "
-              src={arrow}
-              alt="arrow left"
-            />
-            <MediumTitle className="section-yourProfile_Header_title">
-              Polecani korepetytorzy
-            </MediumTitle>
-          </header>
+         <HeaderComponent text={"Polecani Korepetytorzy"}/>
         </div>
         <div className="section-recommendedTutor_tutorSingle">
           <div className="section-recommendedTutor_tutorSingle_container">

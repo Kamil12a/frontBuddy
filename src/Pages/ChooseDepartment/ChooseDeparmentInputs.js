@@ -15,6 +15,7 @@ import geography from "./photos/allDepartmens/geography.png";
 import law from "./photos/allDepartmens/law.png";
 import management from "./photos/allDepartmens/management.png";
 import bioTech from "./photos/allDepartmens/bioTech.png";
+import HeaderComponent from "../../Components/Header/Headers.js";
 
 function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
   const departments = [
@@ -48,17 +49,8 @@ function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
   return (
     <>
       <section className="chooseYourDepartment">
-        <header className=" chooseYourDepartment_Header">
-          <img
-            onClick={backNavigate}
-            className="chooseYourDepartment_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="chooseYourDepartment_Header_title">
-            Wybierz Wydział
-          </MediumTitle>
-        </header>
+       
+        <HeaderComponent text={" Wybierz Wydział"}/>
         <div className="chooseYourDepartment_allDepartments">
           {departments.map((deparments, index) => {
             if (deparments.name == yourDepartment) {

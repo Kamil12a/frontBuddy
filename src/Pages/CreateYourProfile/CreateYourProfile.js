@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import department from "../ChooseDepartment/photos/departmentMain.png";
 import year from "../ChooseDepartment/photos/yearOfStudy.png";
 import field from "../ChooseDepartment/photos/fieldOfStudy.png";
-
+import HeaderComponent from "../../Components/Header/Headers.js";
 function CreateYourProfile({ url }) {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
@@ -21,17 +21,8 @@ function CreateYourProfile({ url }) {
   return (
     <>
       <section className=" section-yourProfile">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={navigateBack}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Profil
-          </MediumTitle>
-        </header>
+        <HeaderComponent text={"Profil"}/>
+      
         <div className="container_userName">
           <MediumTitle>{theme.userDataAccount.name}</MediumTitle>
         </div>

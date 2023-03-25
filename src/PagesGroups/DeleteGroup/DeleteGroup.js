@@ -1,38 +1,21 @@
-import arrow from "../Photos/leftArrow.png";
 import noDelete from "./photos/no.png";
 import yesDelete from "./photos/yes.png";
 import { useNavigate } from "react-router-dom";
 import {
   MediumTitle,
-  SelectInput,
-  InputForm,
-  SmallLabelForm,
-  MedParagraph,
   SimpleBlockInput,
-  Button,
+
 } from "../../Components/variables";
-import { useState } from "react";
 import "./deleteGroup.css";
 import Navigation from "../../Components/Navigation/Navigation";
+import HeaderComponent from "../../Components/Header/Headers";
 function DeleteGroup() {
   const navigate = useNavigate();
   return (
     <>
       <Navigation />
       <section className=" section_delete_group">
-        <header className="section-create_group_Header">
-          <img
-            onClick={() => {
-              navigate(-1);
-            }}
-            className="section-create_group_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-create_group_title">
-            Statistica{" "}
-          </MediumTitle>
-        </header>
+      <HeaderComponent text={"Statistica"}/>
         <div className="section_delete_group_container">
           <MediumTitle className="section_delete_group_title">
             Zakończyć grupę?

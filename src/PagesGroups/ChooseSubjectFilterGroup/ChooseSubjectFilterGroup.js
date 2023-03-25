@@ -8,6 +8,7 @@ import {
 } from "../../Components/variables";
 import "./chooseSubjectFilterGroup.css";
 import { useState } from "react";
+import HeaderComponent from "../../Components/Header/Headers";
 function ChooseSubjectFilterGroup({setState}) {
     let choosenSubjects = [];
   const [yourSubject, setYourSubject] = useState([]);
@@ -38,19 +39,7 @@ function ChooseSubjectFilterGroup({setState}) {
   return (
     <>
       <section className=" section-yourProfile">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={() => {
-              setState(0)
-            }}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Wybierz przedmiot{" "}
-          </MediumTitle>
-        </header>
+       <HeaderComponent text={"Wybierz przedmiot"}/>
         {subejcts.map((subject, index) => {
           if (yourSubject.includes(subject)) {
             return (

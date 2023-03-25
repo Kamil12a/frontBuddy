@@ -1,3 +1,4 @@
+import HeaderComponent from "../../Components/Header/Headers.js";
 import {
   Button,
   MediumTitle,
@@ -32,17 +33,7 @@ function ChooseYearOfStudy({
   return (
     <>
       <section className="chooseYourYearOfStudy">
-        <header className=" chooseYourYearOfStudy_Header">
-          <img
-            onClick={backNavigate}
-            className="chooseYourDepartment_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="chooseYourDepartment_Header_title">
-            Wybierz rok studiów
-          </MediumTitle>
-        </header>
+        <HeaderComponent text={"Wybierz rok studiów"}/>
         <div className="chooseYourYearOfStudy_AllYears">
           {yearOfStudyBlock.map((yearOfMyStudy, index) => {
             if (yearOfMyStudy === yearOfStudy) {

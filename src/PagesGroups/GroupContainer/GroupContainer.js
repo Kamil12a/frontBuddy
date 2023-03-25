@@ -1,7 +1,5 @@
 import "./groupContainer.css";
 import {
-  SelectInput,
-  InputForm,
   SmallParagraph,
   MedParagraph,
 } from "../../Components/variables.js";

@@ -10,7 +10,8 @@ import {
 } from "../../Components/variables";
 import "./subject.css";
 import { useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { useState } from "react"
+import HeaderComponent from "../../Components/Header/Headers";
 function WhatSubjectDoYouKnow() {
   const subejcts = [
     "Algebra Liniowa",
@@ -40,18 +41,8 @@ function WhatSubjectDoYouKnow() {
   return (
     <>
       <section className=" section-yourProfile">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={navigateBack}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Z jakim przedmiotami możesz komuś pomóc?
-          </MediumTitle>
-        </header>
-
+        <HeaderComponent text={ " Z jakim przedmiotami możesz komuś pomóc?"}/>
+       
         <InputForm
           placeholder="szukaj"
           src="https://example.com/my-image.png"

@@ -9,7 +9,7 @@ import {
 } from "../../Components/variables";
 import "./tutorprofile.css";
 import { useNavigate } from "react-router-dom";
-
+import HeaderComponent from "../../Components/Header/Headers";
 function TutorProfile() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
@@ -27,17 +27,8 @@ function TutorProfile() {
   return (
     <>
       <section className=" section-yourProfile">
-        <header className=" section-yourProfile_Header">
-          <img
-            onClick={navigateBack}
-            className="section-yourProfile_Header_arrow "
-            src={arrow}
-            alt="arrow left"
-          />
-          <MediumTitle className="section-yourProfile_Header_title">
-            Profil Korepetytora
-          </MediumTitle>
-        </header>
+        <HeaderComponent text={" Profil Korepetytora"}/>
+       
         <div className="container_wannaBeTutor">
           <SmallParagraph className="headingWannaBeTutor">
             Czy chcesz zostać korepetytorem?
