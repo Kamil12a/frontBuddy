@@ -1,4 +1,3 @@
-
 import {
   Button,
   MediumTitle,
@@ -6,11 +5,9 @@ import {
 } from "../../Components/variables.js";
 import arrow from "./photos/leftArrow.png";
 import "./chooseDepartment.css";
-
 function ChooseField({ field, setState, setField }) {
   const setFieldFunc = (e) => {
     setField(e.target.name);
-    console.log(e.target.name);
   };
   const backNavigate = () => {
     setState(0);
@@ -39,36 +36,34 @@ function ChooseField({ field, setState, setField }) {
           </MediumTitle>
         </header>
         <div className="chooseFieldOfStudy-container">
-          {fields.map((myfield) => {
+          {fields.map((myfield, index) => {
             if (myfield === field) {
               return (
-                <>
-                  <SimpleBlockInput
-                    name={myfield}
-                    className="chooseFieldOfStudy"
-                    onClick={setFieldFunc}
-                    style={{ border: "2px solid black" }}
-                  >
-                    {myfield}
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  key={myfield + index}
+                  name={myfield}
+                  className="chooseFieldOfStudy"
+                  onClick={setFieldFunc}
+                  style={{ border: "2px solid black" }}
+                >
+                  {myfield}
+                </SimpleBlockInput>
               );
             } else {
               return (
-                <>
-                  <SimpleBlockInput
-                    name={myfield}
-                    onClick={setFieldFunc}
-                    className="chooseFieldOfStudy"
-                  >
-                    {myfield}
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  key={myfield + index}
+                  name={myfield}
+                  onClick={setFieldFunc}
+                  className="chooseFieldOfStudy"
+                >
+                  {myfield}
+                </SimpleBlockInput>
               );
             }
           })}
         </div>
-        <Button  onClick={backNavigate} className="chooseYearOfStudyButton">
+        <Button onClick={backNavigate} className="chooseYearOfStudyButton">
           Zatwierdź
         </Button>
       </section>

@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../Context/UserContext";
-import arrow from "../ChooseDepartment/photos/leftArrow.png";
 import { MediumTitle, MedParagraph, Button } from "../../Components/variables";
 import "./yourProfile.css";
 import { useNavigate } from "react-router-dom";
@@ -11,13 +10,6 @@ import HeaderComponent from "../../Components/Header/Headers.js";
 function CreateYourProfile({ url }) {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const navigateBack = () => {
-    navigate(-1);
-    console.log(theme);
-  };
-  const navigateToTutorProfile = () => {
-    navigate("../tutorProfile");
-  };
   return (
     <>
       <section className=" section-yourProfile">
@@ -34,7 +26,7 @@ function CreateYourProfile({ url }) {
             src={department}
             alt="department"
           />
-          <MedParagraph>{theme.userDataAccount.yourDepartment}</MedParagraph>
+          <MedParagraph>{theme.userDataAccount.department}</MedParagraph>
         </div>
           <div className="block_aboutyourStudy">
             <img
@@ -50,7 +42,7 @@ function CreateYourProfile({ url }) {
               src={year}
               alt="department"
             />
-            <MedParagraph>{theme.userDataAccount.yearOfStudy}</MedParagraph>
+            <MedParagraph>{theme.userDataAccount.startYear}</MedParagraph>
           </div>
         </div>
 

@@ -1,16 +1,14 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../Context/UserContext";
-import arrow from "../ChooseDepartment/photos/leftArrow.png";
 import pen from "./photos/pen.png";
 import {
   Button,
   InputForm,
-  MediumTitle,
   SimpleBlockInput,
 } from "../../Components/variables";
 import "./subject.css";
-import { useNavigate} from "react-router-dom";
-import { useState } from "react"
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import HeaderComponent from "../../Components/Header/Headers";
 function WhatSubjectDoYouKnow() {
   const subejcts = [
@@ -23,9 +21,6 @@ function WhatSubjectDoYouKnow() {
   const theme = useContext(ThemeContext);
   const [yourSubject, setYourSubject] = useState([]);
   let choosenSubjects = [];
-  const navigateBack = () => {
-    navigate(-1);
-  };
   const chooseYourSubjects = (e) => {
     if (choosenSubjects.includes(e.target.name)) {
       choosenSubjects = choosenSubjects.filter(function (value) {
@@ -38,11 +33,18 @@ function WhatSubjectDoYouKnow() {
     }
     setYourSubject(choosenSubjects);
   };
+  const confirm_courses=()=>{
+    theme.setUserDataAccount({
+      ...theme.userDataAccount,
+      course:yourSubject
+    });
+    navigate("../writeAboutYou");
+  }
   return (
     <>
       <section className=" section-yourProfile">
-        <HeaderComponent text={ " Z jakim przedmiotami możesz komuś pomóc?"}/>
-       
+        <HeaderComponent text={" Z jakim przedmiotami możesz komuś pomóc?"} />
+
         <InputForm
           placeholder="szukaj"
           src="https://example.com/my-image.png"
@@ -54,44 +56,40 @@ function WhatSubjectDoYouKnow() {
         {subejcts.map((subject, index) => {
           if (yourSubject.includes(subject)) {
             return (
-              <>
-                <SimpleBlockInput
-                  key={index + subject}
-                  onClick={chooseYourSubjects}
-                  name={subject}
-                  className="subject_blockInput"
-                  style={{ border: "2px solid" }}
-                >
-                  {" "}
-                  <img className="pen" src={pen} alt="pen" />
-                  {subject}
-                </SimpleBlockInput>
-              </>
+              <SimpleBlockInput
+                key={index + subject}
+                onClick={chooseYourSubjects}
+                name={subject}
+                className="subject_blockInput"
+                style={{ border: "2px solid" }}
+              >
+                {" "}
+                <img className="pen" src={pen} alt="pen" />
+                {subject}
+              </SimpleBlockInput>
             );
           } else {
             return (
-              <>
-                <SimpleBlockInput
-                  key={index + subject}
-                  onClick={chooseYourSubjects}
-                  name={subject}
-                  className="subject_blockInput"
-                >
-                  {" "}
-                  <img className="pen" src={pen} alt="pen" />
-                  {subject}
-                </SimpleBlockInput>
-              </>
+              <SimpleBlockInput
+                key={index + subject}
+                onClick={chooseYourSubjects}
+                name={subject}
+                className="subject_blockInput"
+              >
+                {" "}
+                <img className="pen" src={pen} alt="pen" />
+                {subject}
+              </SimpleBlockInput>
             );
           }
         })}
         <Button className="buttons_chooseSubject">
           Przedmioty spoza kierunku
         </Button>
-        <Button 
-         className="buttons_chooseSubject_confirm"
+        <Button
+          className="buttons_chooseSubject_confirm"
           onClick={() => {
-            navigate("../writeAboutYou");
+            confirm_courses()
           }}
         >
           Zatwierdź

@@ -10,7 +10,7 @@ import {
 } from "../../Components/variables";
 import "./profilManagment.css";
 import { useNavigate } from "react-router-dom";
-import HeaderComponent from "../../Components/Header/Headers"
+import HeaderComponent from "../../Components/Header/Headers";
 import department from "../ChooseDepartment/photos/departmentMain.png";
 import year from "../ChooseDepartment/photos/yearOfStudy.png";
 import field from "../ChooseDepartment/photos/fieldOfStudy.png";
@@ -20,17 +20,19 @@ function ProfilManagment() {
   const navigate = useNavigate();
   const createAccount = () => {
     const data = {
-      ...theme.userDataAccount,
       email: theme.userDataAccount.email,
-      login: "s",
-      password: theme.userDataAccount.password,
-      name: theme.userDataAccount.email,
-      surname: " ",
-      course: theme.userDataAccount.yourDepartment,
+      login:  theme.userDataAccount.name,
+      password:  theme.userDataAccount.password,
+      name:  theme.userDataAccount.name,
+      surname: "string",
+      course:  "course",
+      department:  theme.userDataAccount.department,
+      startYear: "2023-04-06T12:37:16.983Z",
+      fieldOfStudy:  theme.userDataAccount.fieldOfStudy,
+      description:  theme.userDataAccount.description,
+      knownSubjectId: 1,
     };
-    console.log(data)
-
-    fetch("http://145.239.86.33/User/AddUser", {
+    fetch("https://localhost:7082/User/AddUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,8 +50,13 @@ function ProfilManagment() {
           name: "",
           surname: " ",
           course: "",
+          department: "",
+          startYear: "",
+          fieldOfStudy: "",
+          description: "",
+          knownSubjectId: null,
         });
-        navigate("../");
+        // navigate("../");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -59,11 +66,10 @@ function ProfilManagment() {
   return (
     <>
       <section className="section_tutorProfile">
-       
         <div className="container_userName">
           <MediumTitle>{theme.userDataAccount.name}</MediumTitle>
         </div>
-    <HeaderComponent text={"Profil"}/>
+        <HeaderComponent text={"Profil"} />
         <div className="yourInformationAboutStudyInProfile">
           <div className="block_aboutyourStudy">
             <img

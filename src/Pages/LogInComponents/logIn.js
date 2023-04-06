@@ -25,7 +25,7 @@ function LogIn() {
   const logIn = (values) => {
     let user;
     fetch(
-      `http://145.239.86.33/User/LoginUser?login=${values.userName}&password=${values.password}`
+      `https://localhost:7082/User/LoginUser?login=${values.userName}&password=${values.password}`
     )
       .then((response) => response.json())
       .then((data) => {

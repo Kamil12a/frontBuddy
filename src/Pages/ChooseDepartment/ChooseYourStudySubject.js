@@ -25,20 +25,25 @@ function ChooseYourStudySubject() {
   const navigateChooseField = () => {
     setState(3);
   };
-  const createAcc = () => {
+  const confirm_study_info = () => {
     theme.setUserDataAccount({
       ...theme.userDataAccount,
-      yourDepartment: yourDepartment,
-      yearOfStudy: yearOfStudy + " "+ year,
-      field: field,
+      department: department,
+      startYear: startYear + " " + year,
+      fieldOfStudy: field,
     });
     navigate("../createYourProfile");
   };
 
-  const [yourDepartment, setYourDepartment] = useState("Wydział");
-  const [yearOfStudy, setYourYearOfStudy] = useState("Rok studiów");
-  const [year, setYear] = useState("Rok studiów");
-  const [field, setField] = useState("Kierunek studiów");
+  const [department, setYourDepartment] = useState(
+    theme.userDataAccount.department
+  );
+  const [startYear, setYourYearOfStudy] = useState(
+    theme.userDataAccount.startYear
+  );
+  console.log(theme)
+  const [year, setYear] = useState("");
+  const [field, setField] = useState(theme.userDataAccount.fieldOfStudy);
   const [state, setState] = useState(0);
   return (
     <>
@@ -50,8 +55,8 @@ function ChooseYourStudySubject() {
             </MediumTitle>
             <Formik
               initialValues={{
-                yearOfStudy: "",
-                fieldOfStudy: "",
+                startYear: "",
+                field: "",
                 department: "",
               }}
               onSubmit={(values) => alert(JSON.stringify(values))}
@@ -65,7 +70,7 @@ function ChooseYourStudySubject() {
                       className="Container_Form_inputs_department"
                       name="department"
                     >
-                      <option value="">{yourDepartment}</option>
+                      <option value="">{department}</option>
                     </SelectInput>
                   </div>
                   <div className="Container_Form_department_section_Inputs">
@@ -75,7 +80,7 @@ function ChooseYourStudySubject() {
                       className=" Container_Form_inputs_yearOfStudy"
                       name="year"
                     >
-                      <option value="">{yearOfStudy + " " + year}</option>
+                      <option value="">{startYear + " " + year}</option>
                     </SelectInput>
                   </div>
                   <div className="Container_Form_department_section_Inputs">
@@ -97,7 +102,7 @@ function ChooseYourStudySubject() {
                     </Button>
                     <Button
                       type="submit"
-                      onClick={createAcc}
+                      onClick={confirm_study_info}
                       className="Container_Form_department_confirm"
                     >
                       Zatwierdź
@@ -112,7 +117,7 @@ function ChooseYourStudySubject() {
       {state === 1 && (
         <>
           <ChooseDepartment
-            yourDepartment={yourDepartment}
+            department={department}
             setYourDepartment={setYourDepartment}
             setState={setState}
           />
@@ -121,7 +126,7 @@ function ChooseYourStudySubject() {
       {state === 2 && (
         <>
           <ChooseYearOfStudy
-            yearOfStudy={yearOfStudy}
+            startYear={startYear}
             setYourYearOfStudy={setYourYearOfStudy}
             year={year}
             setYear={setYear}

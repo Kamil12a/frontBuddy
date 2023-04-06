@@ -14,7 +14,7 @@ function WriteAboutYou() {
       ...theme.userDataAccount,
       description: e.target.value,
     });
-    console.log(theme)
+
   };
   return (
     <>
@@ -29,6 +29,7 @@ function WriteAboutYou() {
         <textarea
           id="aboutYou"
           name="aboutYou"
+          defaultValue={theme.userDataAccount.description}
           className="section-writeAboutYou_Header_text_area"
           onChange={getValueFromField}
         ></textarea>

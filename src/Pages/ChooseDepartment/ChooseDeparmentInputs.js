@@ -40,7 +40,6 @@ function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
   ];
   const chooseDepartment = (e) => {
     setYourDepartment(e.target.name);
-    console.log(yourDepartment);
   };
 
   const backNavigate = () => {
@@ -49,48 +48,43 @@ function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
   return (
     <>
       <section className="chooseYourDepartment">
-       
-        <HeaderComponent text={" Wybierz Wydział"}/>
+        <HeaderComponent text={" Wybierz Wydział"} />
         <div className="chooseYourDepartment_allDepartments">
           {departments.map((deparments, index) => {
             if (deparments.name == yourDepartment) {
               return (
-                <>
-                  <SimpleBlockInput
-                    style={{ border: "2px solid black" }}
-                    name={deparments.name}
-                    onClick={chooseDepartment}
-                    key={index + deparments}
-                    className="departmentBlock"
-                  >
-                    {deparments.name}
-                    <img
-                      onClick={backNavigate}
-                      className="departmentBlockImage "
-                      src={deparments.src}
-                      alt="deparment_name"
-                    />
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  style={{ border: "2px solid black" }}
+                  name={deparments.name}
+                  onClick={chooseDepartment}
+                  key={index + deparments}
+                  className="departmentBlock"
+                >
+                  {deparments.name}
+                  <img
+                    onClick={backNavigate}
+                    className="departmentBlockImage "
+                    src={deparments.src}
+                    alt="deparment_name"
+                  />
+                </SimpleBlockInput>
               );
             } else {
               return (
-                <>
-                  <SimpleBlockInput
-                    name={deparments.name}
-                    onClick={chooseDepartment}
-                    key={index + deparments}
-                    className="departmentBlock"
-                  >
-                    {deparments.name}
-                    <img
-                      onClick={backNavigate}
-                      className="departmentBlockImage "
-                      src={deparments.src}
-                      alt="deparment_name"
-                    />
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  name={deparments.name}
+                  onClick={chooseDepartment}
+                  key={index + deparments}
+                  className="departmentBlock"
+                >
+                  {deparments.name}
+                  <img
+                    onClick={backNavigate}
+                    className="departmentBlockImage "
+                    src={deparments.src}
+                    alt="deparment_name"
+                  />
+                </SimpleBlockInput>
               );
             }
           })}

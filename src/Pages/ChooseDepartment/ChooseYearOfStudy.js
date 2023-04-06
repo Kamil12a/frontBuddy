@@ -33,67 +33,60 @@ function ChooseYearOfStudy({
   return (
     <>
       <section className="chooseYourYearOfStudy">
-        <HeaderComponent text={"Wybierz rok studiów"}/>
+        <HeaderComponent text={"Wybierz rok studiów"} />
         <div className="chooseYourYearOfStudy_AllYears">
           {yearOfStudyBlock.map((yearOfMyStudy, index) => {
             if (yearOfMyStudy === yearOfStudy) {
               return (
-                <>
-                  <SimpleBlockInput
-                    style={{ border: "2px solid black" }}
-                    onClick={chooseYearOfStudy}
-                    key={index + yearOfMyStudy}
-                    name={yearOfMyStudy}
-                    className="YearOfStudyBlock"
-                  >
-                    {yearOfMyStudy}
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  style={{ border: "2px solid black" }}
+                  onClick={chooseYearOfStudy}
+                  key={index + yearOfMyStudy}
+                  name={yearOfMyStudy}
+                  className="YearOfStudyBlock"
+                >
+                  {yearOfMyStudy}
+                </SimpleBlockInput>
               );
             } else {
               return (
-                <>
-                  <SimpleBlockInput
-                    onClick={chooseYearOfStudy}
-                    key={index + yearOfMyStudy}
-                    name={yearOfMyStudy}
-                    className="YearOfStudyBlock"
-                  >
-                    {yearOfMyStudy}
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  onClick={chooseYearOfStudy}
+                  key={index + yearOfMyStudy}
+                  name={yearOfMyStudy}
+                  className="YearOfStudyBlock"
+                >
+                  {yearOfMyStudy}
+                </SimpleBlockInput>
               );
             }
           })}
         </div>
 
         <div className="chooseYourYearOfStudy_AllYearsInNumber">
-          {yearOfStudyNumber.map((yearNumber) => {
+          {yearOfStudyNumber.map((yearNumber, index) => {
             if (year === yearNumber) {
               return (
-                <>
-                  <SimpleBlockInput
+                <SimpleBlockInput
+                  key={index + yearNumber}
                   className="fieldStudyBlock"
-                    style={{ border: "2px solid black" }}
-                    name={yearNumber}
-                    onClick={chooseYear}
-               
-                  >
-                    {yearNumber}
-                  </SimpleBlockInput>
-                </>
+                  style={{ border: "2px solid black" }}
+                  name={yearNumber}
+                  onClick={chooseYear}
+                >
+                  {yearNumber}
+                </SimpleBlockInput>
               );
             } else {
               return (
-                <>
-                  <SimpleBlockInput
-                    name={yearNumber}
-                    onClick={chooseYear}
-                    className="blockYear"
-                  >
-                    {yearNumber}
-                  </SimpleBlockInput>
-                </>
+                <SimpleBlockInput
+                  key={index + yearNumber}
+                  name={yearNumber}
+                  onClick={chooseYear}
+                  className="blockYear"
+                >
+                  {yearNumber}
+                </SimpleBlockInput>
               );
             }
           })}
