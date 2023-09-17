@@ -43,3 +43,9 @@
 .buttons_boxes>*{
   width: 50%!important;
 }
+.section-create_group_meeting{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
