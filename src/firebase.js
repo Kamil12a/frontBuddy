@@ -1,12 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import {
   getFirestore,
   collection,
   addDoc,
   doc,
   setDoc,
-
+  getDocs,
 } from "firebase/firestore";
 
 // Your Firebase configuration code (already provided by you)
@@ -55,4 +59,17 @@ export async function signUserIn(email, password) {
       const errorMessage = error.message;
       console.error("Błąd logowania:", errorCode, errorMessage);
     });
+}
+export async function fetchDocs() {
+  const groupsRef = collection(firestore, "Groups");
+  const querySnapshot = await getDocs(groupsRef);
+
+  const groups = [];
+  querySnapshot.forEach((doc) => {
+    const groupData = doc.data();
+    const groupId = doc.id; // Pobierz ID dokumentu
+    groups.push({ id: groupId, ...groupData }); // Dodaj ID do danych grupy
+  });
+
+  return groups;
 }

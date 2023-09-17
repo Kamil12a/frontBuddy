@@ -12,11 +12,23 @@ import ChooseSubjectFilterGroup from "../ChooseSubjectFilterGroup/ChooseSubjectF
 import GroupContainer from "../GroupContainer/GroupContainer";
 import { useState } from "react";
 import SortSection from "../SortSection/SortSection";
+import { useEffect } from "react";
+import { fetchDocs } from "../../firebase";
 
 function Groups() {
   const [state, setState] = useState(0);
+  const [groups, setGroups] = useState([]);
   const navigate = useNavigate();
- 
+  useEffect(() => {
+    fetchDocs()
+      .then((groupsWithIds) => {
+        setGroups(groupsWithIds);
+        console.log(groupsWithIds); // Otrzymasz dane grup wraz z ich identyfikatorami
+      })
+      .catch((error) => {
+        console.error("Błąd:", error);
+      });
+  }, []);
   return (
     <>
       <section className=" section-groups">
@@ -66,28 +78,15 @@ function Groups() {
               </div>
             </div>
             <div className="groupsContainer-block">
-            <GroupContainer
-                            
-                            shortDescription={"xddsds"}
-                          />
-              {/* {groups !== undefined && (
-                <>
-                  {groups.groups.map((grupa) => {
-                    return (
-                      <>
-                        <div onClick={() => {
-                              navigate(`/detailsGroup/${grupa.id}`);;
-                            }}>
-                          <GroupContainer
-                            
-                            shortDescription={grupa.description}
-                          />
-                        </div>
-                      </>
-                    );
-                  })}
-                </>
-              )} */}
+              {groups.map((group, index) => (
+                <GroupContainer
+                  key={index}
+                  id={group.id}
+                  date={group.fields.date}
+                  title={group.fields.title}
+                  subject={group.fields.subjects}
+                />
+              ))}
             </div>
 
             <SimpleBlockInput

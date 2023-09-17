@@ -44,7 +44,7 @@ function CreateAccount() {
                 <InputForm
                   src="https://example.com/my-image.png"
                   alt="Submit"
-                  // required
+                  required
                   type={"text"}
                   onChange={handleChange}
                   name="name"
@@ -55,7 +55,7 @@ function CreateAccount() {
               <div className="LogInContainer_Form_input_password">
                 <LabelForm>E-mail</LabelForm>
                 <InputForm
-                  // required
+                  required
                   type={"text"}
                   onChange={handleChange}
                   name="email"
@@ -66,7 +66,7 @@ function CreateAccount() {
               <div className="LogInContainer_Form_input_password">
                 <LabelForm>Hasło</LabelForm>
                 <InputForm
-                  // required
+                  required
                   onChange={handleChange}
                   name="password"
                   type={"password"}

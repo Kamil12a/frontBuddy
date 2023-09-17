@@ -19,12 +19,12 @@ import bioTech from "./photos/allDepartmens/bioTech.png";
 function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
   const departments = [
     {
-      name: "Wydział Biologii",
+      name: "Biology",
       src: biology,
     },
-    { name: "Wydział Chemii", src: chemistry },
-    { name: "Wydział Ekonomiczny", src: economy },
-    { name: "Wydział Filologiczny", src: philological },
+    { name: "Chemistry", src: chemistry },
+    { name: "Economic", src: economy },
+    { name: "Phisolophy", src: philological },
     { name: "Wydział Historyczny", src: history },
     { name: "Wydział MatematykiFizyki i Informatyki", src: MFI },
     { name: "Wydział Oceanografiii Geografii", src: geography },
@@ -55,7 +55,7 @@ function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
             alt="arrow left"
           />
           <MediumTitle className="chooseYourDepartment_Header_title">
-            Wybierz Wydział
+            Choose deparment
           </MediumTitle>
         </header>
         <div className="chooseYourDepartment_allDepartments">

@@ -17,21 +17,7 @@ function RecoomendedTutor() {
     <>
       <Navigation />
       <section className="section-recommendedTutor">
-        <div className="section-yourProfile">
-          <header className=" section-yourProfile_Header">
-            <img
-              onClick={() => {
-                navigate(-1);
-              }}
-              className="section-yourProfile_Header_arrow "
-              src={arrow}
-              alt="arrow left"
-            />
-            <MediumTitle className="section-yourProfile_Header_title">
-              Polecani korepetytorzy
-            </MediumTitle>
-          </header>
-        </div>
+       
         <div className="section-recommendedTutor_tutorSingle">
           <div className="section-recommendedTutor_tutorSingle_container">
             <img
