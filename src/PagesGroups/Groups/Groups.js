@@ -12,13 +12,11 @@ import ChooseSubjectFilterGroup from "../ChooseSubjectFilterGroup/ChooseSubjectF
 import GroupContainer from "../GroupContainer/GroupContainer";
 import { useState } from "react";
 import SortSection from "../SortSection/SortSection";
-import { fetchGroups } from "./fetchGroups";
-import { useQuery } from "react-query";
+
 function Groups() {
   const [state, setState] = useState(0);
   const navigate = useNavigate();
-  const { data: groups } = useQuery("groups", fetchGroups);
-  console.log(groups);
+ 
   return (
     <>
       <section className=" section-groups">
@@ -68,7 +66,11 @@ function Groups() {
               </div>
             </div>
             <div className="groupsContainer-block">
-              {groups !== undefined && (
+            <GroupContainer
+                            
+                            shortDescription={"xddsds"}
+                          />
+              {/* {groups !== undefined && (
                 <>
                   {groups.groups.map((grupa) => {
                     return (
@@ -85,7 +87,7 @@ function Groups() {
                     );
                   })}
                 </>
-              )}
+              )} */}
             </div>
 
             <SimpleBlockInput

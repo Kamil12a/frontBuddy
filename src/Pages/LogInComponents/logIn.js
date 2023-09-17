@@ -6,46 +6,24 @@ import {
   InputForm,
   SmallParagraph,
 } from "../../Components/variables.js";
-import { useContext, useEffect } from "react";
-import { ThemeContext } from "../../Context/UserContext";
 import "./logIn.css";
 import { Formik } from "formik";
-
+import {signUserIn} from "../../firebase.js"
 function LogIn() {
-  useEffect(() => {
-    if (theme.userDataAccount.isLoggedIn) {
-      navigate(+1);
-    }
-  }, []);
-  const theme = useContext(ThemeContext);
   const navigate = useNavigate();
   const navigateToCreateAccount = () => {
     navigate("./createAccount");
   };
-  const logIn = (values) => {
-    fetch(
-      `http://145.239.86.33/User/LoginUser?login=${values.userName}&password=${values.password}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data === true) {
-          theme.setUserDataAccount({
-            ...theme.userDataAccount,
-            isLoggedIn: data,
-          });
-          sessionStorage.setItem("user", JSON.stringify(theme.userDataAccount));
-          navigate("../groupPanel")
-        }
-      })
-      
-  };
+  
   return (
     <>
       <section className="LogInContainer">
         <BigTitle className="LogInContainer_logInHeader">Logowanie</BigTitle>
         <Formik
           initialValues={{ userName: "", password: "" }}
-          onSubmit={(values) => logIn(values)}
+          onSubmit={(values) => signUserIn(values.userName,values.password).then(()=>{
+            navigate("/groupPanel")
+          })}
         >
           {({ values, handleChange, handleSubmit }) => (
             <form

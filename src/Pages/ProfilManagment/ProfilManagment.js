@@ -11,49 +11,23 @@ import {
 import "./profilManagment.css";
 import { useNavigate } from "react-router-dom";
 import arrow from "../ChooseDepartment/photos/leftArrow.png";
-
 import department from "../ChooseDepartment/photos/departmentMain.png";
 import year from "../ChooseDepartment/photos/yearOfStudy.png";
 import field from "../ChooseDepartment/photos/fieldOfStudy.png";
 import settings from "./photos/settings.png";
+import { createUser } from "../../firebase";
 function ProfilManagment() {
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
   const createAccount = () => {
-    const data = {
+    const userDatas = {
       ...theme.userDataAccount,
-      email: theme.userDataAccount.email,
-      login: "s",
-      password: theme.userDataAccount.password,
-      name: theme.userDataAccount.email,
-      surname: " ",
-      course: theme.userDataAccount.yourDepartment,
-    };
-
-    fetch("http://145.239.86.33/User/AddUser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    }
+    delete userDatas.email
+    delete userDatas.password
+    createUser(theme.userDataAccount.email,theme.userDataAccount.password,userDatas).then(()=>{
+      navigate("/")
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        theme.setUserDataAccount({
-          isLoggedIn: false,
-          email: "",
-          login: "",
-          password: "",
-          name: "",
-          surname: " ",
-          course: "",
-        });
-        navigate("../");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
   return (

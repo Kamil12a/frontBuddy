@@ -13,7 +13,6 @@ function WriteAboutYou() {
       ...theme.userDataAccount,
       description: e.target.value,
     });
-    console.log(theme)
   };
   return (
     <>

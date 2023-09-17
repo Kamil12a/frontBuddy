@@ -5,8 +5,6 @@ import privacy from "./photos/privacy.png";
 import settings from "./photos/settings.png";
 import { useNavigate } from "react-router-dom";
 import {
-  Button,
-  InputForm,
   MediumTitle,
   SimpleBlockInput,
 } from "../../Components/variables";

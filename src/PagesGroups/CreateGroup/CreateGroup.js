@@ -9,12 +9,16 @@ import {
   SimpleBlockInput,
   Button,
 } from "../../Components/variables";
+import "firebase/auth";
 import { Formik } from "formik";
-import { useState } from "react";
 import "./createGroup.css";
+import { getAuth } from "firebase/auth";
+import { createCollectionAndAddDocument } from "../../firebase";
 import Navigation from "../../Components/Navigation/Navigation";
 function CreateGroup() {
   const navigate = useNavigate();
+  const auth = getAuth();
+
   return (
     <>
       <Navigation />
@@ -33,8 +37,13 @@ function CreateGroup() {
           </MediumTitle>
         </header>
         <Formik
-          initialValues={{ userName: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          initialValues={{ subjects: "", deadline: "", description: "" }}
+          onSubmit={(values) =>
+            createCollectionAndAddDocument("Groups", {
+              ...values,
+              userUid: auth.currentUser.uid,
+            })
+          }
         >
           {({ values, handleChange, handleSubmit }) => (
             <form
@@ -44,15 +53,30 @@ function CreateGroup() {
               <SmallLabelForm>Tytuł</SmallLabelForm>
               <InputForm />
               <div className="section-groups_sort_container">
-                <SelectInput className="section-groups_sort" name="Sortuj">
+                <SelectInput
+                  onChange={handleChange}
+                  value={values.subjects}
+                  className="section-groups_sort"
+                  name="subjects"
+                >
                   <option value="">Przedmiot</option>
+                  <option value="Matematyka">Matematyka</option>
                 </SelectInput>
-                <SelectInput className="section-groups_sort" name="Sortuj">
+
+                <SelectInput
+                  onChange={handleChange}
+                  className="section-groups_sort"
+                  name="deadline"
+                  value={values.date}
+                >
                   <option value="">Deadline</option>
+                  <option value="one week"> one week</option>
                 </SelectInput>
               </div>
               <SmallLabelForm>Opis</SmallLabelForm>
               <textarea
+                onChange={handleChange}
+                value={values.description}
                 className="section-create_group_description"
                 id="description"
                 name="description"
@@ -77,13 +101,7 @@ function CreateGroup() {
                 >
                   Anuluj
                 </Button>
-                <Button
-                  onClick={() => {
-                    navigate("../groupId");
-                  }}
-                >
-                  Zatwierdź
-                </Button>
+                <Button type="submit">Zatwierdź</Button>
               </div>
             </form>
           )}

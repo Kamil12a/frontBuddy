@@ -39,7 +39,6 @@ function ChooseDepartment({ yourDepartment, setYourDepartment, setState }) {
   ];
   const chooseDepartment = (e) => {
     setYourDepartment(e.target.name);
-    console.log(yourDepartment);
   };
 
   const backNavigate = () => {

@@ -18,8 +18,8 @@ function CreateAccount() {
       ...theme.userDataAccount,
       ...data,
     });
-  
-    navigate("../chooseYourStudySubject")
+
+    navigate("../chooseYourStudySubject");
   };
 
   return (
@@ -29,11 +29,8 @@ function CreateAccount() {
         <Formik
           initialValues={{
             email: "",
-            login: "",
             password: "",
             name: "",
-            surname: "",
-            course: "",
           }}
           onSubmit={(values) => signUp(values)}
         >

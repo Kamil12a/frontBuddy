@@ -20,31 +20,26 @@ import ChatGroup from "./PagesGroups/ChatGroup/ChatGroup";
 import AddMettings from "./PagesGroups/AddMettings/AddMettings";
 import AddPayment from "./PagesGroups/AddPayment/AddPayment";
 import DeleteGroup from "./PagesGroups/DeleteGroup/DeleteGroup";
-import { QueryClient, QueryClientProvider } from 'react-query'
-const queryClient = new QueryClient()
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 function App() {
   const [userDataAccount, setUserDataAccount] = useState({
-    isLoggedIn: false,
-    email: "",
-    login: "",
-    password: "",
-    name: "",
-    surname: " ",
-    course: "",
   });
+  const [logged,setLogged]=useState(false)
   useEffect(() => {
-    let user = JSON.parse(sessionStorage.getItem("user"));
-    console.log(user);
-    if (user !== null) {
-      if (user.isLoggedIn) {
-        setUserDataAccount(user);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+       setLogged(true)
+      } else {
+        setLogged(false)
       }
-    }
+    });
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-    <>
+   
+  
       <ThemeContext.Provider value={{ userDataAccount, setUserDataAccount }}>
         <HashRouter>
           <Routes>
@@ -68,7 +63,7 @@ function App() {
             <Route path="/yourProfile" element={<ProfilManagment />} />
             <Route path="/profileSettings" element={<ProfileSettings />} />
 
-            {userDataAccount.isLoggedIn && (
+            {logged && (
               <>
                 <Route path="/groupPanel" element={<Groups />} />
 
@@ -96,8 +91,7 @@ function App() {
           </Routes>
         </HashRouter>
       </ThemeContext.Provider>
-    </>
-    </QueryClientProvider>
+
   );
 }
 
