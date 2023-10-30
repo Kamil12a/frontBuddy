@@ -4,8 +4,7 @@
 .groupChat_section_chat {
   display: flex;
   align-items: center;
-  position: absolute;
-  bottom: 25px;
+  
 }
 .groupChat_section_chat_field {
   outline: none;
@@ -13,6 +12,27 @@
   border-radius: 28px;
   font-size: 16px;
   font-family: "Roboto", sans-serif;
-  width: 253px;
   height: 36px;
+  
+
+}
+.groupChat_section_chat_textFieldImage{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+}
+.chat-messages{
+  display: flex;
+  flex-direction: column-reverse;
+  
+}
+.my-message {
+  text-align: right;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.other-message {
+  text-align: left;
 }

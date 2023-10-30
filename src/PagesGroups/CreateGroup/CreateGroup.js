@@ -55,7 +55,10 @@ function CreateGroup() {
             createCollectionAndAddDocument("Groups", {
               ...values,
               date: newDate,
-              userUid: auth.currentUser.uid,
+              admin: auth.currentUser.uid,
+              users:[],
+              tutor:null,
+              message:[]
             }).then(
               navigate(-1)
             )

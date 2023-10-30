@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from "./Pages/LogInComponents/logIn";
 import CreateAccount from "./Pages/CreateAccount/createAccount";
 import ChooseYourStudySubject from "./Pages/ChooseDepartment/ChooseYourStudySubject";
@@ -21,77 +21,80 @@ import AddMettings from "./PagesGroups/AddMettings/AddMettings";
 import AddPayment from "./PagesGroups/AddPayment/AddPayment";
 import DeleteGroup from "./PagesGroups/DeleteGroup/DeleteGroup";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import MyProfile from "./PagesGroups/myProfile/MyProfile";
+import YourGroups from "./PagesGroups/YourGroups/YourGroups";
 
 function App() {
-  const [userDataAccount, setUserDataAccount] = useState({
-  });
-  const [logged,setLogged]=useState(false)
+  const [userDataAccount, setUserDataAccount] = useState({});
+  const [logged, setLogged] = useState(false);
+  const queryClient = new QueryClient();
+  
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-       setLogged(true)
+        setLogged(true);
       } else {
-        setLogged(false)
+        setLogged(false);
       }
     });
   }, []);
 
   return (
-   
-  
-      <ThemeContext.Provider value={{ userDataAccount, setUserDataAccount }}>
-        <HashRouter>
-          <Routes>
-            <Route exact path="/" element={<LogIn />} />
+    <QueryClientProvider client={queryClient}>
+    <ThemeContext.Provider value={{ userDataAccount, setUserDataAccount }}>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<LogIn />} />
+          <Route path="/createAccount" element={<CreateAccount />} />
+          <Route
+            path="/chooseYourStudySubject"
+            element={<ChooseYourStudySubject />}
+          />
+          <Route
+            path="/createYourProfile"
+            element={<CreateYourProfile url={"../tutorProfile"} />}
+          />
+          <Route path="/tutorProfile" element={<TutorProfile />} />
+          <Route
+            path="/whatSubjectDoYouKnow"
+            element={<WhatSubjectDoYouKnow />}
+          />
+          <Route path="/writeAboutYou" element={<WriteAboutYou />} />
+          <Route path="/yourProfile" element={<ProfilManagment />} />
+          <Route path="/profileSettings" element={<ProfileSettings />} />
 
-            <Route path="/createAccount" element={<CreateAccount />} />
-            <Route
-              path="/chooseYourStudySubject"
-              element={<ChooseYourStudySubject />}
-            />
-            <Route
-              path="/createYourProfile"
-              element={<CreateYourProfile url={"../tutorProfile"} />}
-            />
-            <Route path="/tutorProfile" element={<TutorProfile />} />
-            <Route
-              path="/whatSubjectDoYouKnow"
-              element={<WhatSubjectDoYouKnow />}
-            />
-            <Route path="/writeAboutYou" element={<WriteAboutYou />} />
-            <Route path="/yourProfile" element={<ProfilManagment />} />
-            <Route path="/profileSettings" element={<ProfileSettings />} />
+          {logged && (
+            <>
+              <Route path="/groupPanel" element={<Groups />} />
+              <Route
+                path="/createGroup_ChooseSubject"
+                element={<CreateGroup />}
+              />
+              <Route
+                path="/createGroup_ChooseSubject"
+                element={<RecoomendedTutor />}
+              />
+              <Route
+                path="/readyTutorProfile"
+                element={<ReadyTutorProfile />}
+              />
+              <Route path="/detailsGroup/:id" element={<CreatedGroup />} />
+              <Route path="/groupSettingsId" element={<GroupSettings />} />
+              <Route path="/chatGroup/:id" element={<ChatGroup />} />
+              <Route path="/addMettingsId" element={<AddMettings />} />
+              <Route path="/addPaymentId" element={<AddPayment />} />
+              <Route path="/deleteGroupId" element={<DeleteGroup />} />
+              <Route path="/myProfile/:id" element={<MyProfile />} />
+              <Route path="/yourGroups" element={ <YourGroups/>} />
 
-            {logged && (
-              <>
-                <Route path="/groupPanel" element={<Groups />} />
-
-                <Route
-                  path="/createGroup_ChooseSubject"
-                  element={<CreateGroup />}
-                />
-                <Route
-                  path="/createGroup_ChooseSubject"
-                  element={<RecoomendedTutor />}
-                />
-                <Route
-                  path="/readyTutorProfile"
-                  element={<ReadyTutorProfile />}
-                />
-                <Route path="/detailsGroup/:id" element={<CreatedGroup />} />
-                <Route path="/groupSettingsId" element={<GroupSettings />} />
-                <Route path="/chatGroupId" element={<ChatGroup />} />
-                <Route path="/addMettingsId" element={<AddMettings />} />
-                <Route path="/addPaymentId" element={<AddPayment />} />
-                <Route path="/deleteGroupId" element={<DeleteGroup />} />
-               
-              </>
-            )}
-          </Routes>
-        </HashRouter>
-      </ThemeContext.Provider>
-
+            </>
+          )}
+        </Routes>
+      </Router>
+    </ThemeContext.Provider>
+    </QueryClientProvider>
   );
 }
 

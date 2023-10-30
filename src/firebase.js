@@ -11,6 +11,9 @@ import {
   doc,
   setDoc,
   getDocs,
+  getDoc,
+  updateDoc,
+  onSnapshot
 } from "firebase/firestore";
 
 // Your Firebase configuration code (already provided by you)
@@ -52,15 +55,15 @@ export async function signUserIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log("Zalogowano użytkownika:", user.uid);
+   
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error("Błąd logowania:", errorCode, errorMessage);
     });
 }
-export async function fetchDocs() {
+export async function fetchGroups() {
+  
   const groupsRef = collection(firestore, "Groups");
   const querySnapshot = await getDocs(groupsRef);
 
@@ -72,4 +75,94 @@ export async function fetchDocs() {
   });
 
   return groups;
+}
+export async function fetchCollDocParams(collId, docId) {
+  const userDocRef = doc(firestore, collId, docId);
+
+  try {
+    const docSnapshot = await getDoc(userDocRef);
+    if (docSnapshot.exists()) {
+      const docParams = docSnapshot.data();
+      return docParams; // Dodano return, aby zwrócić dane dokumentu
+    } else {
+      console.log("Dokument o podanym ID nie istnieje.");
+    }
+  } catch (error) {
+    console.error("Błąd podczas pobierania dokumentu:", error);
+  }
+}
+export async function addUserToGroup(collId, docId, userId) {
+  try {
+    const userDocRef = doc(firestore, collId, docId);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      const docData = userDoc.data();
+      if (!docData.users) {
+        docData.users = []; // Jeśli nie ma tablicy users, utwórz ją
+      }
+
+      if (!docData.users.includes(userId)) {
+        docData.users.push(userId); // Dodaj użytkownika do tablicy
+        await updateDoc(userDocRef, docData); // Zaktualizuj dokument
+        return true; // Zwróć true w przypadku sukcesu
+      } else {
+        console.log("Użytkownik jest już członkiem grupy.");
+        return false; // Zwróć false, gdy użytkownik jest już członkiem grupy
+      }
+    } else {
+      console.log("Dokument o podanym ID nie istnieje.");
+      return false; // Zwróć false w przypadku braku dokumentu
+    }
+  } catch (error) {
+    console.error("Błąd podczas dodawania użytkownika do grupy:", error);
+    throw error; // Rzucanie błędem w przypadku wystąpienia problemu
+  }
+}
+export async function addMessageToGroup(collId, docId, message) {
+  try {
+    const groupDocRef = doc(firestore, collId, docId);
+    const groupDoc = await getDoc(groupDocRef);
+
+    if (groupDoc.exists()) {
+      const docData = groupDoc.data();
+      if (!docData.messages) {
+        docData.messages = []; // Jeśli nie ma tablicy messages, utwórz ją
+      }
+
+      // Dodaj nową wiadomość do tablicy
+      docData.messages.push(message);
+
+      await updateDoc(groupDocRef, docData); // Zaktualizuj dokument
+
+      return true; // Zwróć true w przypadku sukcesu
+    } else {
+      console.log("Dokument o podanym ID nie istnieje.");
+      return false; // Zwróć false w przypadku braku dokumentu
+    }
+  } catch (error) {
+    console.error("Błąd podczas dodawania wiadomości do grupy:", error);
+    throw error; // Rzucanie błędem w przypadku wystąpienia problemu
+  }
+}
+
+
+
+
+
+
+export function startListeningToGroupChanges(col,groupId, callback) {
+  const groupDocRef = doc(firestore, col, groupId);
+
+  const unsubscribe = onSnapshot(groupDocRef, (doc) => {
+    if (doc.exists()) {
+      const data = doc.data();
+      callback(data);
+    } else {
+      // Dokument został usunięty
+      callback(null);
+    }
+  });
+
+  return unsubscribe;
 }
