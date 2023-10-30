@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/frontBuddy/static/css/main.43861c7d.css",
+    "main.js": "/frontBuddy/static/js/main.03e5f347.js",
+    "index.html": "/frontBuddy/index.html",
+    "main.43861c7d.css.map": "/frontBuddy/static/css/main.43861c7d.css.map",
+    "main.03e5f347.js.map": "/frontBuddy/static/js/main.03e5f347.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.43861c7d.css",
+    "static/js/main.03e5f347.js"
+  ]
+}
