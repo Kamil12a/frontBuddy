@@ -65,6 +65,8 @@ function ChatGroup() {
   const navigateUserProfile = (userId) => {
     if (userId === auth.currentUser.uid) {
       navigate(`/myProfile/${userId}`);
+    } else {
+      navigate(`/readyTutorProfile/${userId}`);
     }
   };
 
@@ -124,31 +126,35 @@ function ChatGroup() {
               if (message.userid === auth.currentUser.uid) {
                 return (
                   <div key={index} className="chat-message my-message">
-                    <img
-                      id={message.userid}
-                      className="chat-messages_image"
-                      src={allProfileImages[message.userid]}
-                      alt="ellipse"
-                      onClick={() => {
-                        navigateUserProfile(message.userid);
-                      }}
-                    />
-                    <MedParagraph>{message.message}</MedParagraph>
+                    <div className="chat-message_container">
+                      <img
+                        id={message.userid}
+                        className="chat-messages_image"
+                        src={allProfileImages[message.userid]}
+                        alt="ellipse"
+                        onClick={() => {
+                          navigateUserProfile(message.userid);
+                        }}
+                      />
+                      <MedParagraph>{message.message}</MedParagraph>
+                    </div>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="chat-message other-message">
-                    <img
-                      id={message.userid}
-                      className="chat-messages_image"
-                      src={allProfileImages[message.userid]}
-                      alt="ellipse"
-                      onClick={() => {
-                        navigateUserProfile(message.userid);
-                      }}
-                    />
-                    <MedParagraph>{message.message}</MedParagraph>
+                    <div className="chat-message_container">
+                      <img
+                        id={message.userid}
+                        className="chat-messages_image"
+                        src={allProfileImages[message.userid]}
+                        alt="ellipse"
+                        onClick={() => {
+                          navigateUserProfile(message.userid);
+                        }}
+                      />
+                      <MedParagraph>{message.message}</MedParagraph>
+                    </div>
                   </div>
                 );
               }
