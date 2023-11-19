@@ -14,20 +14,46 @@ import { useState } from "react";
 import SortSection from "../SortSection/SortSection";
 import { useEffect } from "react";
 import { fetchGroups } from "../../firebase";
-
+import { getFileDownloadURL } from "../../firebase";
 function Groups() {
   const [state, setState] = useState(0);
   const [state2, setState2] = useState("loading");
   const [groups, setGroups] = useState([]);
+  const [admin, setAdmin] = useState(null);
+  const [imageProfile, setImageProfile] = useState(null);
+
   const navigate = useNavigate();
   const auth = getAuth();
-
+  const uploadAllUsersPhotos = (groupsData) => {
+    groupsData.forEach((group, index) => {
+      if (group.fields.tutor !== null) {
+        getFileDownloadURL(`/profileImage/${group.fields.tutor}`).then((data) => {
+          setImageProfile(data);
+          setAdmin(group.fields.tutor);
+          setState2("loaded");
+        }).catch((error) => {
+          console.error("Error fetching profile image:", error);
+          setState("error");
+        });
+      } else {   
+        getFileDownloadURL(`/profileImage/${group.fields.admin}`).then((data) => {
+          setImageProfile(data);
+          setAdmin(group.fields.admin);
+          setState2("loaded");
+        }).catch((error) => {
+          console.error("Error fetching profile image:", error);
+          setState("error");
+        });
+      }
+    });
+  };
   useEffect(() => {
     fetchGroups()
       .then((groupsWithIds) => {
         setGroups(groupsWithIds);
-        setState2("loaded");
+        uploadAllUsersPhotos(groupsWithIds)
       })
+      
       .catch((error) => {
         console.error("Błąd:", error);
       });
@@ -87,16 +113,18 @@ function Groups() {
               </div>
               <div className="groupsContainer-block">
                 {groups.map((group, index) => {
+                  console.log("Group Data: ", group);
+                  console.log("User ID: ", auth.currentUser.uid);
+
                   if (
-                    group &&
-                    group.users &&
-                    group.users.includes &&
-                    !group.users.includes(auth.currentUser.uid) &&
+                    !group.fields.users.includes(auth.currentUser.uid) &&
                     group.fields.admin !== auth.currentUser.uid &&
                     group.fields.tutor !== auth.currentUser.uid
                   ) {
                     return (
                       <GroupContainer
+                        admin={admin}
+                        imgProfile={imageProfile}
                         key={index}
                         id={group.id}
                         date={group.fields.date}
@@ -119,12 +147,8 @@ function Groups() {
             </>
           )}
 
-          {state === 1 && (
-            <ChooseSubjectFilterGroup setState={setState} />
-          )}
-          {state === 2 && (
-            <SortSection setState={setState} />
-          )}
+          {state === 1 && <ChooseSubjectFilterGroup setState={setState} />}
+          {state === 2 && <SortSection setState={setState} />}
         </section>
       )}
     </>

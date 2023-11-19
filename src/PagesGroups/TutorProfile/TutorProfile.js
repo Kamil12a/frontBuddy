@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../Context/UserContext";
-import book from "./photos/bookTutor.png";
 import pen from "./photos/pen.png";
 import field from "./photos/fieldOfStudy.png";
 import year from "./photos/yearOfStudy.png";
 import star from "./photos/star.png";
 import arrow from "./photos/leftArrow.png";
 import ellipse from "./photos/ellipse.png";
+import { useParams } from "react-router-dom";
+import { fetchCollDocParams } from "../../firebase";
 import {
   MedParagraph,
   SmallParagraph,
@@ -18,12 +19,18 @@ import "./TutorProfile.css";
 import Navigation from "../../Components/Navigation/Navigation.js";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import settings from "./photos/settings.png";
-import CreateYourProfile from "../../Pages/CreateYourProfile/CreateYourProfile.js";
 function ReadyTutorProfile() {
-  const theme = useContext(ThemeContext);
   const navigate = useNavigate();
   const [state, setState] = useState(0);
+  const [userData, setUserData] = useState(null);
+  const user = useParams();
+  useEffect(() => {
+    fetchCollDocParams("Users", user.id).then((data) => {
+      setUserData(data);
+      setState(1);
+    });
+  }, []);
+
   return (
     <>
       {" "}
@@ -42,12 +49,12 @@ function ReadyTutorProfile() {
             Profil Korepetytora
           </MediumTitle>
         </header>
-        {state === 0 && (
+        {state === 1 && (
           <>
             <div className="section_tutorProfile_mainInformation">
               <img src={ellipse} alt="ellipse" />
               <MediumTitle className="section-yourProfile_Header_title_name">
-                Michał
+                {userData.name}
               </MediumTitle>
               <div className="section-yourProfile_Header_title_stars">
                 {[1, 2, 3, 4, 5].map((index) => {
@@ -68,9 +75,7 @@ function ReadyTutorProfile() {
                 src={field}
                 alt="department"
               />
-              <MedParagraph>
-                Modelowanie Matematyczne i Analiza Danych
-              </MedParagraph>
+              <MedParagraph>{userData.yourDepartment} </MedParagraph>
             </div>
             <div className="block_aboutyourStudy  yourDepartment_field_recommendation">
               <img
@@ -78,29 +83,21 @@ function ReadyTutorProfile() {
                 src={year}
                 alt="department"
               />
-              <MedParagraph>Licencjat, III rok</MedParagraph>
+              <MedParagraph>{userData.yearOfStudy}</MedParagraph>
             </div>
             <SmallParagraph className="section_tutorProfile_description_text">
               Opis:
             </SmallParagraph>
             <MedParagraph className="section_tutorProfile_description">
-              Jestem fajny i przyjazny, kocham pomagać innym
-            </MedParagraph>
+            {userData.description}            </MedParagraph>
             <SmallParagraph className="section_tutorProfile_topics">
               Zagadnienia:
             </SmallParagraph>
             <div className="yourSubject">
               <img className="pen" src={pen} alt="pen" />
-              <MedParagraph>Algebra Liniowa</MedParagraph>
+              <MedParagraph>{userData.field}</MedParagraph>
             </div>
-            <div className="yourSubject">
-              <img className="pen" src={pen} alt="pen" />
-              <MedParagraph>Statystyka Opisowa</MedParagraph>
-            </div>
-            <div className="yourSubject">
-              <img className="pen" src={pen} alt="pen" />
-              <MedParagraph>Analiza Matematycza</MedParagraph>
-            </div>
+            
 
             <MedParagraph>Opinie (1):</MedParagraph>
             <div className="reccomendation_Container">

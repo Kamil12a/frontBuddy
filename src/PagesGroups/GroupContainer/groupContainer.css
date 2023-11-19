@@ -10,7 +10,10 @@
     margin-bottom: 18px;
 }
 .groupContainer_ellipses>*{
-    margin-right: 7px;
+    width: 30px;   
+   
+    border-radius: 50%;
+
 }
 .footer_containerGroup{
     display: flex;

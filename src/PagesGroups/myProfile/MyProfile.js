@@ -15,13 +15,14 @@ import field from "../../Pages/ChooseDepartment/photos/fieldOfStudy.png";
 import settings from "./photos/settings.png";
 import book from "./photos/bookTutor.png";
 import pen from "./photos/pen.png";
-import { fetchCollDocParams } from "../../firebase";
+import { fetchCollDocParams, getFileDownloadURL } from "../../firebase";
 
 function MyProfile() {
   const navigate = useNavigate();
   let { id } = useParams();
   const [data, setData] = useState({});
   const [state, setState] = useState("loading");
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     fetchCollDocParams("Users", id)
@@ -33,8 +34,10 @@ function MyProfile() {
         console.error("Error fetching user data: ", error);
         setState("error");
       });
+     getFileDownloadURL(`/profileImage/${id}`).then((data)=>{
+      setImagePreview(data)
+     })
   }, [id]);
-
   return (
     <>
       {state === "loading" && <div>Loading...</div>}
@@ -56,7 +59,16 @@ function MyProfile() {
           <div className="container_userName">
             <MediumTitle>{data.name}</MediumTitle>
           </div>
-
+          {imagePreview !== null && (
+          <div className="section_tutorProfile_image_box">
+            <img
+              className="section_tutorProfile_image"
+              src={imagePreview}
+              alt="Podgląd obrazu"
+              style={{ maxWidth: "100%", marginTop: "10px" }}
+            />
+          </div>
+        )}
           <div className="yourInformationAboutStudyInProfile">
             <div className="block_aboutyourStudy">
               <img

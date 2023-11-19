@@ -34,3 +34,17 @@
   top: 35px;
   right: 20px;
 }
+.section_tutorProfile_image_box{
+  display: flex;
+  justify-content: center;
+}
+.section_tutorProfile_image{
+
+  max-width: "100%";
+  margin-top: 10px;
+  width: "150px";
+  height: "150px";
+  object-fit: "contain";
+  border-radius: "50%";
+
+}

@@ -13,8 +13,9 @@ import {
   getDocs,
   getDoc,
   updateDoc,
-  onSnapshot
+  onSnapshot,
 } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Your Firebase configuration code (already provided by you)
 
@@ -31,15 +32,46 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+const storage = getStorage(app);
 
 // Function to create a user
-export async function createUser(email, password, fields) {
+export async function createUser(email, password, fields, img) {
   createUserWithEmailAndPassword(auth, email, password).then(
     (userCredential) => {
       const user = userCredential.user;
       createDocument("Users", user.uid, fields);
+      if (img !== undefined) {
+        uploadFileToStorage(`profileImage/${user.uid}`, img);
+      }
     }
   );
+}
+
+// ... (Your existing functions)
+
+// Function to upload a file to Firebase Storage
+export async function uploadFileToStorage(filePath, file) {
+  const storageRef = ref(storage, filePath);
+
+  try {
+    await uploadBytes(storageRef, file);
+    console.log("File successfully uploaded to Firebase Storage");
+  } catch (error) {
+    console.error("Error uploading file to Firebase Storage:", error);
+    throw error;
+  }
+}
+
+// Function to get the download URL of a file from Firebase Storage
+export async function getFileDownloadURL(filePath) {
+  const storageRef = ref(storage, filePath);
+
+  try {
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function createCollectionAndAddDocument(collectionName, fields) {
@@ -55,7 +87,6 @@ export async function signUserIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-   
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -63,7 +94,6 @@ export async function signUserIn(email, password) {
     });
 }
 export async function fetchGroups() {
-  
   const groupsRef = collection(firestore, "Groups");
   const querySnapshot = await getDocs(groupsRef);
 
@@ -146,12 +176,7 @@ export async function addMessageToGroup(collId, docId, message) {
   }
 }
 
-
-
-
-
-
-export function startListeningToGroupChanges(col,groupId, callback) {
+export function startListeningToGroupChanges(col, groupId, callback) {
   const groupDocRef = doc(firestore, col, groupId);
 
   const unsubscribe = onSnapshot(groupDocRef, (doc) => {

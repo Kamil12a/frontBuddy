@@ -52,7 +52,8 @@ function App() {
             path="/chooseYourStudySubject"
             element={<ChooseYourStudySubject />}
           />
-          <Route
+          
+                    <Route
             path="/createYourProfile"
             element={<CreateYourProfile url={"../tutorProfile"} />}
           />
@@ -77,7 +78,7 @@ function App() {
                 element={<RecoomendedTutor />}
               />
               <Route
-                path="/readyTutorProfile"
+                path="/readyTutorProfile/:id"
                 element={<ReadyTutorProfile />}
               />
               <Route path="/detailsGroup/:id" element={<CreatedGroup />} />

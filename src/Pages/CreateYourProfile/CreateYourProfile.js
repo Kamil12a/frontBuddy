@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../Context/UserContext";
 import arrow from "../ChooseDepartment/photos/leftArrow.png";
 import { MediumTitle, MedParagraph, Button } from "../../Components/variables";
@@ -9,22 +9,35 @@ import year from "../ChooseDepartment/photos/yearOfStudy.png";
 import field from "../ChooseDepartment/photos/fieldOfStudy.png";
 
 function CreateYourProfile({ url }) {
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
+
   const navigateBack = () => {
     navigate(-1);
-    console.log(theme);
+
   };
-  const navigateToTutorProfile = () => {
-    navigate("../tutorProfile");
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
   };
+  const navigateTutor=()=>{
+    theme.setUserDataAccount({
+      ...theme.userDataAccount,
+      img: selectedFile
+    });
+    navigate(url)
+  }
+ 
+
   return (
     <>
-      <section className=" section-yourProfile">
-        <header className=" section-yourProfile_Header">
+      <section className="section-yourProfile">
+        <header className="section-yourProfile_Header">
           <img
             onClick={navigateBack}
-            className="section-yourProfile_Header_arrow "
+            className="section-yourProfile_Header_arrow"
             src={arrow}
             alt="arrow left"
           />
@@ -37,14 +50,14 @@ function CreateYourProfile({ url }) {
         </div>
 
         <div className="yourInformationAboutStudyInProfile">
-        <div className="block_aboutyourStudy">
-          <img
-            className="aboutYourStudyImage"
-            src={department}
-            alt="department"
-          />
-          <MedParagraph>{theme.userDataAccount.yourDepartment}</MedParagraph>
-        </div>
+          <div className="block_aboutyourStudy">
+            <img
+              className="aboutYourStudyImage"
+              src={department}
+              alt="department"
+            />
+            <MedParagraph>{theme.userDataAccount.yourDepartment}</MedParagraph>
+          </div>
           <div className="block_aboutyourStudy">
             <img
               className="aboutYourStudyImage boutYourStudyImage2"
@@ -61,17 +74,23 @@ function CreateYourProfile({ url }) {
             />
             <MedParagraph>{theme.userDataAccount.yearOfStudy}</MedParagraph>
           </div>
+
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
         </div>
 
         <Button
-          onClick={() => {
-            navigate(url);
-          }}
+          onClick={navigateTutor}
           type="submit"
           className="Container_Form_department_confirm"
         >
           Zatwierdź
         </Button>
+        
       </section>
     </>
   );

@@ -1,7 +1,5 @@
-import { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../Context/UserContext";
-import book from "./photos/bookTutor.png";
-import pen from "./photos/pen.png";
 import {
   MedParagraph,
   SmallParagraph,
@@ -16,24 +14,43 @@ import year from "../ChooseDepartment/photos/yearOfStudy.png";
 import field from "../ChooseDepartment/photos/fieldOfStudy.png";
 import settings from "./photos/settings.png";
 import { createUser } from "../../firebase";
+
 function ProfilManagment() {
   const theme = useContext(ThemeContext);
+  const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
+
   const createAccount = () => {
-    const userDatas = {
-      ...theme.userDataAccount,
-    }
-    delete userDatas.email
-    delete userDatas.password
-    createUser(theme.userDataAccount.email,theme.userDataAccount.password,userDatas).then(()=>{
-      navigate("/")
-    })
+    const userDatas = { ...theme.userDataAccount };
+    delete userDatas.email;
+    delete userDatas.password;
+    const img = userDatas.img;
+    delete userDatas.img;
+
+    createUser(
+      theme.userDataAccount.email,
+      theme.userDataAccount.password,
+      userDatas,
+      img
+    ).then(() => {
+      navigate("/");
+    });
   };
+
+  useEffect(() => {
+    if (theme.userDataAccount.img) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(theme.userDataAccount.img);
+    }
+  }, [theme.userDataAccount.img]);
 
   return (
     <>
       <section className="section_tutorProfile">
-        <header className=" section-yourProfile_Header">
+        <header className="section-yourProfile_Header">
           <img
             onClick={() => {
               navigate(-1);
@@ -46,10 +63,20 @@ function ProfilManagment() {
             Profil
           </MediumTitle>
         </header>
+
         <div className="container_userName">
           <MediumTitle>{theme.userDataAccount.name}</MediumTitle>
         </div>
-
+        {imagePreview !== null && (
+          <div className="section_tutorProfile_image_box">
+            <img
+              className="section_tutorProfile_image"
+              src={imagePreview}
+              alt="Podgląd obrazu"
+              style={{ maxWidth: "100%", marginTop: "10px" }}
+            />
+          </div>
+        )}
         <div className="yourInformationAboutStudyInProfile">
           <div className="block_aboutyourStudy">
             <img
@@ -86,41 +113,7 @@ function ProfilManagment() {
         >
           Zatwierdź
         </Button>
-        <div className="section_tutorProfile_title">
-          <img src={book} alt="book" />
-          <MedParagraph className="tutorTitle_sectionTutorProfile">
-            Korepetytor
-          </MedParagraph>
-        </div>
-        <SmallParagraph className="section_tutorProfile_description_text">
-          Opis:
-        </SmallParagraph>
-        <MedParagraph className="section_tutorProfile_description">
-          {theme.userDataAccount.description}
-        </MedParagraph>
-        <SmallParagraph className="section_tutorProfile_topics">
-          Zagadnienia:
-        </SmallParagraph>
-        <div className="section_tutorProfile_your_topic">
-          <img className="pen" src={pen} alt="pen" />
-          <MedParagraph>Algebra Liniowa</MedParagraph>
-        </div>
-        <div className="section_tutorProfile_your_topic">
-          <img className="pen" src={pen} alt="pen" />
-          <MedParagraph>Statystyka Opisowa</MedParagraph>
-        </div>
-        <div className="section_tutorProfile_your_topic">
-          <img className="pen" src={pen} alt="pen" />
-          <MedParagraph>Analiza Matematycza</MedParagraph>
-        </div>
-        <img
-          onClick={() => {
-            navigate("../profileSettings");
-          }}
-          className="settings"
-          src={settings}
-          alt="settings"
-        />
+        {/* Pozostała część kodu... */}
       </section>
     </>
   );
